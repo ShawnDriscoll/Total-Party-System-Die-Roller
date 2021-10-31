@@ -853,7 +853,7 @@ class Ui_MainWindow(object):
         self.selDiff.setMinimumContentsLength(0)
         self.selDiff.setObjectName("selDiff")
         self.difflabel = QtWidgets.QLabel(self.centralwidget)
-        self.difflabel.setGeometry(QtCore.QRect(500, 80, 101, 20))
+        self.difflabel.setGeometry(QtCore.QRect(480, 80, 101, 20))
         font = QtGui.QFont()
         font.setFamily("Optima")
         font.setPointSize(10)
