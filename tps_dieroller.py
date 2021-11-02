@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.0.1 Beta for the Total Party Skills RPG
+TPS DieRoller 0.1.0 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -21,10 +21,10 @@ from PyQt5.QtWidgets import *
 #from PyQt5 import uic
 import PyQt5.QtMultimedia as MM
 import time
-from mainwindow_001b import Ui_MainWindow
-from aboutdialog_001b import Ui_aboutDialog
-from alertdialog_001b import Ui_alertDialog
-from missingdialog_001b import Ui_missingDialog
+from mainwindow_010b import Ui_MainWindow
+from aboutdialog_010b import Ui_aboutDialog
+from alertdialog_010b import Ui_alertDialog
+from missingdialog_010b import Ui_missingDialog
 from random import randint
 from rpg_tools.PyDiceroll import roll
 import sys
@@ -34,12 +34,20 @@ import json
 import pprint
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.0.1 Beta'
-__version__ = '0.0.1b'
+__app__ = 'TPS DieRoller 0.1.0 Beta'
+__version__ = '0.1.0b'
 __py_version__ = '3.9.7'
 __expired_tag__ = False
 
-#form_class = uic.loadUiType("mainwindow_001b.ui")[0]
+'''
+Status Level
+3 = Optimal
+2 = Hurt
+1 = Wounded
+0 = Incapacitated
+'''
+
+#form_class = uic.loadUiType("mainwindow_010b.ui")[0]
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
@@ -109,7 +117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         super().__init__()
         
-        #uic.loadUi("mainwindow_001b.ui", self)
+        #uic.loadUi("mainwindow_010b.ui", self)
         
         log.info('PyQt5 MainWindow initializing...')
         self.setupUi(self)
@@ -217,6 +225,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set difficulty to not chosen yet
         self.target_num = 0
+
+        self.health_hurt_flag = False
+        self.sanity_hurt_flag = False
+        self.morale_hurt_flag = False
+        self.health_wounded_flag = False
+        self.sanity_wounded_flag = False
+        self.morale_wounded_flag = False
 
         # Set the default save folder and file type
         self.char_folder = 'Planet Matriarchy Characters'
@@ -339,9 +354,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.spiritRadio.setCheckable(False)
                 self.spiritRadio.setCheckable(True)
                 self.spiritRadio.setDisabled(True)
+                self.healthStatus.setText('')
+                self.sanityStatus.setText('')
+                self.moraleStatus.setText('')
                 self.healthDisplay.setText(self.char_data['HEALTH'])
+                if self.healthDisplay.text() == '2':
+                    self.healthStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
+                if self.healthDisplay.text() == '1':
+                    self.healthStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
+                if self.healthDisplay.text() == '0':
+                    self.healthStatus.setText('<span style=" color:#ff0000;">Incapacitated</span>')
+                    log.debug('Character is incapacitated!')
+                if int(self.healthDisplay.text()) < 0:
+                    self.healthStatus.setText('<span style=" color:#ff0000;">Expire</span>')
+                    log.debug('Character has expired!')
                 self.sanityDisplay.setText(self.char_data['SANITY'])
+                if self.sanityDisplay.text() == '2':
+                    self.sanityStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
+                if self.sanityDisplay.text() == '1':
+                    self.sanityStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
+                if self.sanityDisplay.text() == '0':
+                    self.sanityStatus.setText('<span style=" color:#ff0000;">Erratic</span>')
+                    log.debug('Character is erratic!')
+                if int(self.sanityDisplay.text()) < 0:
+                    self.sanityStatus.setText('<span style=" color:#ff0000;">Snap</span>')
+                    log.debug('Character has snapped!')
                 self.moraleDisplay.setText(self.char_data['MORALE'])
+                if self.moraleDisplay.text() == '2':
+                    self.moraleStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
+                if self.moraleDisplay.text() == '1':
+                    self.moraleStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
+                if self.moraleDisplay.text() == '0':
+                    self.moraleStatus.setText('<span style=" color:#ff0000;">In Fear</span>')
+                    log.debug('Character is in fear!')
+                if int(self.moraleDisplay.text()) < 0:
+                    self.moraleStatus.setText('<span style=" color:#ff0000;">Submit</span>')
+                    log.debug('Character has submit!')
                 self.agilitySkill.setValue(self.char_data['Agility'])
                 self.agilitySkill.setDisabled(True)
                 self.beautySkill.setValue(self.char_data['Beauty'])
@@ -367,14 +415,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.rangedSkill.setValue(self.char_data['Ranged'])
                 self.rangedSkill.setDisabled(True)
                 self.rewardDisplay.setText(self.char_data['Reward'])
-                self.rollInitiative_Button.setDisabled(False)
+                if int(self.healthDisplay.text()) > 0:
+                    self.rollInitiative_Button.setDisabled(False)
+                else:
+                    self.rollInitiative_Button.setDisabled(True)
                 self.actionRoll_Initiative.setDisabled(False)
                 self.initiativeDisplay.setText('')
                 self.rollresult_Button.setDisabled(True)
                 self.actionRoll_Result.setDisabled(True)
                 self.rollresultDisplay.setText('')
-                self.movementDisplay.setText(str(1 + self.bodyScore.value() + self.agilitySkill.value()) + ' spaces')
-                self.rangeDisplay.setText(str(1 + self.bodyScore.value() + self.strengthSkill.value()) + ' miles')
+                if int(self.healthDisplay.text()) > 1:
+                    self.movementDisplay.setText(str(1 + self.bodyScore.value() + self.agilitySkill.value()) + ' spaces')
+                    self.rangeDisplay.setText(str(1 + self.bodyScore.value() + self.strengthSkill.value()) + ' miles')
+                    log.debug('Character can move fine.')
+                elif int(self.healthDisplay.text()) == 1:
+                    self.movementDisplay.setText('<span style=" color:#ff0000;">' + str((1 + self.bodyScore.value() + self.agilitySkill.value()) // 2) + ' spaces</span>')
+                    self.rangeDisplay.setText(str(1 + self.bodyScore.value() + self.strengthSkill.value()) + ' miles')
+                    log.debug("Character can't move.")
+                elif int(self.healthDisplay.text()) < 1:
+                    self.movementDisplay.setText('<span style=" color:#ff0000;">0 spaces</span>')
+                    self.rangeDisplay.setText('<span style=" color:#ff0000;">0 miles</span>')
+                    log.debug("Character can't move.")
                 self.agilityRadio.setCheckable(False)
                 self.agilityRadio.setCheckable(True)
                 self.agilityRadio.setDisabled(True)
@@ -468,6 +529,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def bodyRadio_valueChanged(self):
         if self.bodyRadio.isChecked():
             print('Body Roll')
+            self.health_hurt_flag = False
+            self.health_wounded_flag = False
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
@@ -485,10 +548,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.healthDisplay.text() == '2':
+                self.health_hurt_flag = True
+            if self.healthDisplay.text() == '1':
+                self.health_wounded_flag = True
     
     def mindRadio_valueChanged(self):
         if self.mindRadio.isChecked():
             print('Mind Roll')
+            self.sanity_hurt_flag = False
+            self.sanity_wounded_flag = False
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
@@ -506,9 +575,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.sanityDisplay.text() == '2':
+                self.sanity_hurt_flag = True
+            if self.sanityDisplay.text() == '1':
+                self.sanity_wounded_flag = True
     
     def spiritRadio_valueChanged(self):
         if self.spiritRadio.isChecked():
+            self.morale_hurt_flag = False
+            self.morale_wounded_flag = False
             print('Spirit Roll')
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
@@ -527,6 +602,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.moraleDisplay.text() == '2':
+                self.morale_hurt_flag = True
+            if self.moraleDisplay.text() == '1':
+                self.morale_wounded_flag = True
     
     def agilityRadio_valueChanged(self):
         if self.agilityRadio.isChecked():
@@ -676,6 +755,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Display the roll and action result
         '''
+        if self.health_hurt_flag or self.sanity_hurt_flag or self.morale_hurt_flag:
+            self.target_num += 1
+            log.debug('Hurt character receives +1 to difficulty: ' + str(self.target_num))
+            self.health_hurt_flag = False
+            self.sanity_hurt_flag = False
+            self.morale_hurt_flag = False
+        if self.health_wounded_flag or self.sanity_wounded_flag or self.morale_wounded_flag:
+            self.target_num += 3
+            log.debug('Wounded character receives +3 to difficulty: ' + str(self.target_num))
+            self.health_wounded_flag = False
+            self.sanity_wounded_flag = False
+            self.morale_wounded_flag = False
         if self.dice_result > self.target_num:
             self.action_result = str(self.dice_result) + ' - Successful'
         else:
@@ -724,7 +815,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.spiritRadio.setCheckable(False)
         self.spiritRadio.setCheckable(True)
         self.spiritRadio.setDisabled(True)
-        self.rollInitiative_Button.setDisabled(False)
+        if int(self.healthDisplay.text()) > 0:
+            self.rollInitiative_Button.setDisabled(False)
+        else:
+            self.rollInitiative_Button.setDisabled(True)
         self.actionRoll_Initiative.setDisabled(False)
         self.initiativeDisplay.setText('')
         self.rollresult_Button.setDisabled(True)
@@ -862,7 +956,7 @@ if __name__ == '__main__':
 #                         datefmt='%a, %d %b %Y %H:%M:%S',
 #                         filemode = 'w')
 
-    log = logging.getLogger('TPS DieRoller001b')
+    log = logging.getLogger('TPS DieRoller010b')
     log.setLevel(logging.DEBUG)
 
     if not os.path.exists('Logs'):
