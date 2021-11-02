@@ -357,10 +357,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.healthStatus.setText('')
                 self.sanityStatus.setText('')
                 self.moraleStatus.setText('')
+                self.actionMod.setText('')
                 self.healthDisplay.setText(self.char_data['HEALTH'])
                 if self.healthDisplay.text() == '2':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.healthStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.healthDisplay.text() == '1':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.healthStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.healthDisplay.text() == '0':
                     self.healthStatus.setText('<span style=" color:#ff0000;">Incapacitated</span>')
@@ -370,8 +373,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.debug('Character has expired!')
                 self.sanityDisplay.setText(self.char_data['SANITY'])
                 if self.sanityDisplay.text() == '2':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.sanityDisplay.text() == '1':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.sanityDisplay.text() == '0':
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Erratic</span>')
@@ -381,8 +386,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.debug('Character has snapped!')
                 self.moraleDisplay.setText(self.char_data['MORALE'])
                 if self.moraleDisplay.text() == '2':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.moraleStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.moraleDisplay.text() == '1':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.moraleStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.moraleDisplay.text() == '0':
                     self.moraleStatus.setText('<span style=" color:#ff0000;">In Fear</span>')
@@ -430,8 +437,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.debug('Character can move fine.')
                 elif int(self.healthDisplay.text()) == 1:
                     self.movementDisplay.setText('<span style=" color:#ff0000;">' + str((1 + self.bodyScore.value() + self.agilitySkill.value()) // 2) + ' spaces</span>')
+                    log.debug("Character's movement is cut in half.")
                     self.rangeDisplay.setText(str(1 + self.bodyScore.value() + self.strengthSkill.value()) + ' miles')
-                    log.debug("Character can't move.")
                 elif int(self.healthDisplay.text()) < 1:
                     self.movementDisplay.setText('<span style=" color:#ff0000;">0 spaces</span>')
                     self.rangeDisplay.setText('<span style=" color:#ff0000;">0 miles</span>')
