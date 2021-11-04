@@ -19,7 +19,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 #from PyQt5 import uic
-import PyQt5.QtMultimedia as MM
+#import PyQt5.QtMultimedia as MM
 import time
 from mainwindow_010b import Ui_MainWindow
 from aboutdialog_010b import Ui_aboutDialog
@@ -31,7 +31,7 @@ import sys
 import os
 import logging
 import json
-import pprint
+#import pprint
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'TPS DieRoller 0.1.0 Beta'
@@ -249,7 +249,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         log.info('PyQt5 MainWindow initialized.')
 
-        if __expired_tag__ == True:
+        if __expired_tag__ is True:
             '''
             Beta for this app has expired!
             '''
@@ -325,6 +325,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 log.info('TPS folders found')
     
     def loadButton_clicked(self):
+        '''
+        Load a saved character
+        '''
         self.temp_dir = os.path.expanduser('~')
         os.chdir(self.temp_dir + '\.tpsrpg')
         self.filename = QFileDialog.getOpenFileName(self, 'Open TPS Character File', self.char_folder, 'TPS files (*' + self.file_extension + ')')
