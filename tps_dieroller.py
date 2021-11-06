@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.1.0 Beta for the Total Party Skills RPG
+TPS DieRoller 0.1.1 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -21,10 +21,10 @@ from PyQt5.QtWidgets import *
 #from PyQt5 import uic
 #import PyQt5.QtMultimedia as MM
 import time
-from mainwindow_010b import Ui_MainWindow
-from aboutdialog_010b import Ui_aboutDialog
-from alertdialog_010b import Ui_alertDialog
-from missingdialog_010b import Ui_missingDialog
+from mainwindow_011b import Ui_MainWindow
+from aboutdialog_011b import Ui_aboutDialog
+from alertdialog_011b import Ui_alertDialog
+from missingdialog_011b import Ui_missingDialog
 from random import randint
 from rpg_tools.PyDiceroll import roll
 import sys
@@ -34,8 +34,8 @@ import json
 #import pprint
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.1.0 Beta'
-__version__ = '0.1.0b'
+__app__ = 'TPS DieRoller 0.1.1 Beta'
+__version__ = '0.1.1b'
 __py_version__ = '3.9.7'
 __expired_tag__ = False
 
@@ -47,7 +47,7 @@ Status Level
 0 = Incapacitated
 '''
 
-#form_class = uic.loadUiType("mainwindow_010b.ui")[0]
+#form_class = uic.loadUiType("mainwindow_011b.ui")[0]
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
@@ -117,11 +117,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         super().__init__()
         
-        #uic.loadUi("mainwindow_010b.ui", self)
+        #uic.loadUi("mainwindow_011b.ui", self)
         
         log.info('PyQt5 MainWindow initializing...')
         self.setupUi(self)
         
+        # Set the default save folder and file type
+        self.char_folder = 'Planet Matriarchy Characters'
+        self.file_extension = '.tps'
+        self.file_format = 1.2
+
         self.loadButton.clicked.connect(self.loadButton_clicked)
         self.actionLoad.triggered.connect(self.loadButton_clicked)
         self.rollInitiative_Button.clicked.connect(self.rollInitiative_buttonClicked)
@@ -153,6 +158,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.boxingSkill.setDisabled(True)
         self.meleeSkill.setDisabled(True)
         self.rangedSkill.setDisabled(True)
+        self.artSkill.setDisabled(True)
+        self.languagesSkill.setDisabled(True)
+        self.scienceSkill.setDisabled(True)
+        self.clairvoyanceSkill.setDisabled(True)
+        self.psychokinesisSkill.setDisabled(True)
+        self.telepathySkill.setDisabled(True)
         self.agilityRadio.setDisabled(True)
         self.beautyRadio.setDisabled(True)
         self.strengthRadio.setDisabled(True)
@@ -165,6 +176,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.boxingRadio.setDisabled(True)
         self.meleeRadio.setDisabled(True)
         self.rangedRadio.setDisabled(True)
+        self.artRadio.setDisabled(True)
+        self.languagesRadio.setDisabled(True)
+        self.scienceRadio.setDisabled(True)
+        self.clairvoyanceRadio.setDisabled(True)
+        self.psychokinesisRadio.setDisabled(True)
+        self.telepathyRadio.setDisabled(True)
         self.agilityRadio.setChecked(False)
         self.beautyRadio.setChecked(False)
         self.strengthRadio.setChecked(False)
@@ -177,6 +194,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.boxingRadio.setChecked(False)
         self.meleeRadio.setChecked(False)
         self.rangedRadio.setChecked(False)
+        self.artRadio.setChecked(False)
+        self.languagesRadio.setChecked(False)
+        self.scienceRadio.setChecked(False)
+        self.clairvoyanceRadio.setChecked(False)
+        self.psychokinesisRadio.setChecked(False)
+        self.telepathyRadio.setChecked(False)
         self.clearIDR_Button.clicked.connect(self.clearIDR_buttonClicked)
         self.action_ClearIDR.triggered.connect(self.clearIDR_buttonClicked)
         self.actionVisit_Blog.triggered.connect(self.Visit_Blog)
@@ -213,6 +236,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.boxingRadio.toggled.connect(self.boxingRadio_valueChanged)
         self.meleeRadio.toggled.connect(self.meleeRadio_valueChanged)
         self.rangedRadio.toggled.connect(self.rangedRadio_valueChanged)
+        self.artRadio.toggled.connect(self.artRadio_valueChanged)
+        self.languagesRadio.toggled.connect(self.languagesRadio_valueChanged)
+        self.scienceRadio.toggled.connect(self.scienceRadio_valueChanged)
+        self.clairvoyanceRadio.toggled.connect(self.clairvoyanceRadio_valueChanged)
+        self.psychokinesisRadio.toggled.connect(self.psychokinesisRadio_valueChanged)
+        self.telepathyRadio.toggled.connect(self.telepathyRadio_valueChanged)
         self.rollInput.returnPressed.connect(self.manual_roll)
         self.clearRollHistory.clicked.connect(self.clearRollHistoryClicked)
         self.action_ClearRollHistory.triggered.connect(self.clearRollHistoryClicked)
@@ -232,11 +261,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.health_wounded_flag = False
         self.sanity_wounded_flag = False
         self.morale_wounded_flag = False
-
-        # Set the default save folder and file type
-        self.char_folder = 'Planet Matriarchy Characters'
-        self.file_extension = '.tps'
-        self.file_format = 1.1
 
         # Set the About menu item
         self.popAboutDialog=aboutDialog()
@@ -424,6 +448,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.meleeSkill.setDisabled(True)
                 self.rangedSkill.setValue(self.char_data['Ranged'])
                 self.rangedSkill.setDisabled(True)
+                if self.char_folder != 'We Want Soviet Men Characters':
+                    self.artSkill.setDisabled(True)
+                    self.languagesSkill.setDisabled(True)
+                    self.scienceSkill.setDisabled(True)
+                    self.clairvoyanceSkill.setDisabled(True)
+                    self.psychokinesisSkill.setDisabled(True)
+                    self.telepathySkill.setDisabled(True)
+                if self.char_folder == 'We Want Soviet Men Characters':
+                    self.clairvoyanceSkill.setValue(self.char_data['Clairvoyance'])
+                    self.clairvoyanceSkill.setDisabled(True)
+                    self.psychokinesisSkill.setValue(self.char_data['Psychokinesis'])
+                    self.psychokinesisSkill.setDisabled(True)
+                    self.telepathySkill.setValue(self.char_data['Telepathy'])
+                    self.telepathySkill.setDisabled(True)
                 self.rewardDisplay.setText(self.char_data['Reward'])
                 if int(self.healthDisplay.text()) > 0:
                     self.rollInitiative_Button.setDisabled(False)
@@ -482,6 +520,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.rangedRadio.setCheckable(False)
                 self.rangedRadio.setCheckable(True)
                 self.rangedRadio.setDisabled(True)
+                self.artRadio.setCheckable(False)
+                self.artRadio.setCheckable(True)
+                self.artRadio.setDisabled(True)
+                self.languagesRadio.setCheckable(False)
+                self.languagesRadio.setCheckable(True)
+                self.languagesRadio.setDisabled(True)
+                self.scienceRadio.setCheckable(False)
+                self.scienceRadio.setCheckable(True)
+                self.scienceRadio.setDisabled(True)
+                self.clairvoyanceRadio.setCheckable(False)
+                self.clairvoyanceRadio.setCheckable(True)
+                self.clairvoyanceRadio.setDisabled(True)
+                self.psychokinesisRadio.setCheckable(False)
+                self.psychokinesisRadio.setCheckable(True)
+                self.psychokinesisRadio.setDisabled(True)
+                self.telepathyRadio.setCheckable(False)
+                self.telepathyRadio.setCheckable(True)
+                self.telepathyRadio.setDisabled(True)
 
     def selectFolder_valueChanged(self):
         '''
@@ -558,6 +614,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.char_folder == 'We Want Soviet Men Characters':
+                self.artRadio.setDisabled(False)
+                self.languagesRadio.setDisabled(False)
+                self.scienceRadio.setDisabled(False)
+                self.clairvoyanceRadio.setDisabled(False)
+                self.psychokinesisRadio.setDisabled(False)
+                self.telepathyRadio.setDisabled(False)
             if self.healthDisplay.text() == '2':
                 self.health_hurt_flag = True
             if self.healthDisplay.text() == '1':
@@ -585,6 +648,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.char_folder == 'We Want Soviet Men Characters':
+                self.artRadio.setDisabled(False)
+                self.languagesRadio.setDisabled(False)
+                self.scienceRadio.setDisabled(False)
+                self.clairvoyanceRadio.setDisabled(False)
+                self.psychokinesisRadio.setDisabled(False)
+                self.telepathyRadio.setDisabled(False)
             if self.sanityDisplay.text() == '2':
                 self.sanity_hurt_flag = True
             if self.sanityDisplay.text() == '1':
@@ -612,6 +682,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
+            if self.char_folder == 'We Want Soviet Men Characters':
+                self.artRadio.setDisabled(False)
+                self.languagesRadio.setDisabled(False)
+                self.scienceRadio.setDisabled(False)
+                self.clairvoyanceRadio.setDisabled(False)
+                self.psychokinesisRadio.setDisabled(False)
+                self.telepathyRadio.setDisabled(False)
             if self.moraleDisplay.text() == '2':
                 self.morale_hurt_flag = True
             if self.moraleDisplay.text() == '1':
@@ -761,6 +838,78 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
     
+    def artRadio_valueChanged(self):
+        if self.artRadio.isChecked():
+            print('Add Art Skill')
+            self.dice_result = self.actionDice + self.artSkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def languagesRadio_valueChanged(self):
+        if self.languagesRadio.isChecked():
+            print('Add Languages Skill')
+            self.dice_result = self.actionDice + self.languagesSkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def scienceRadio_valueChanged(self):
+        if self.scienceRadio.isChecked():
+            print('Add Science Skill')
+            self.dice_result = self.actionDice + self.scienceSkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def clairvoyanceRadio_valueChanged(self):
+        if self.clairvoyanceRadio.isChecked():
+            print('Add Clairvoyance Skill')
+            self.dice_result = self.actionDice + self.clairvoyanceSkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def psychokinesisRadio_valueChanged(self):
+        if self.psychokinesisRadio.isChecked():
+            print('Add Psychokinesis Skill')
+            self.dice_result = self.actionDice + self.psychokinesisSkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def telepathyRadio_valueChanged(self):
+        if self.telepathyRadio.isChecked():
+            print('Add Telepathy Skill')
+            self.dice_result = self.actionDice + self.telepathySkill.value()
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
     def rollresult_buttonClicked(self):
         '''
         Display the roll and action result
@@ -806,6 +955,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.boxingRadio.setDisabled(True)
         self.meleeRadio.setDisabled(True)
         self.rangedRadio.setDisabled(True)
+        self.artRadio.setDisabled(True)
+        self.languagesRadio.setDisabled(True)
+        self.scienceRadio.setDisabled(True)
+        self.telepathyRadio.setDisabled(True)
+        self.psychokinesisRadio.setDisabled(True)
+        self.telepathyRadio.setDisabled(True)
         log.debug('Displayed action result: ' + self.action_result)
 
     def clearIDR_buttonClicked(self):
@@ -882,6 +1037,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rangedRadio.setCheckable(False)
         self.rangedRadio.setCheckable(True)
         self.rangedRadio.setDisabled(True)
+        self.artRadio.setDisabled(False)
+        self.artRadio.setCheckable(False)
+        self.artRadio.setCheckable(True)
+        self.artRadio.setDisabled(True)
+        self.languagesRadio.setDisabled(False)
+        self.languagesRadio.setCheckable(False)
+        self.languagesRadio.setCheckable(True)
+        self.languagesRadio.setDisabled(True)
+        self.scienceRadio.setDisabled(False)
+        self.scienceRadio.setCheckable(False)
+        self.scienceRadio.setCheckable(True)
+        self.scienceRadio.setDisabled(True)
+        self.clairvoyanceRadio.setDisabled(False)
+        self.clairvoyanceRadio.setCheckable(False)
+        self.clairvoyanceRadio.setCheckable(True)
+        self.clairvoyanceRadio.setDisabled(True)
+        self.psychokinesisRadio.setDisabled(False)
+        self.psychokinesisRadio.setCheckable(False)
+        self.psychokinesisRadio.setCheckable(True)
+        self.psychokinesisRadio.setDisabled(True)
+        self.telepathyRadio.setDisabled(False)
+        self.telepathyRadio.setCheckable(False)
+        self.telepathyRadio.setCheckable(True)
+        self.telepathyRadio.setDisabled(True)
 
     def Visit_Blog(self):
         '''
@@ -966,7 +1145,7 @@ if __name__ == '__main__':
 #                         datefmt='%a, %d %b %Y %H:%M:%S',
 #                         filemode = 'w')
 
-    log = logging.getLogger('TPS DieRoller010b')
+    log = logging.getLogger('TPS DieRoller011b')
     log.setLevel(logging.DEBUG)
 
     if not os.path.exists('Logs'):
