@@ -599,21 +599,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Roll for Initiative
         '''
-        self.initiative = roll(str(self.mindScore.value()) + 'd6')
-        self.initiativeDisplay.setText(str(self.initiative))
+        self.initiative = str(self.mindScore.value()) + 'd6'
+        self.dice_result = roll(self.initiative)
+        self.print_to_box = self.initiative + ' = ' + str(self.dice_result)
+        self.rollInput.setText(self.initiative)
+        self.rollBrowser.append(self.print_to_box)
+        self.initiativeDisplay.setText(str(self.dice_result))
         self.selDiff.setDisabled(False)
         log.debug('Initiative roll was ' + str(self.initiative))
     
     def bodyRadio_valueChanged(self):
         if self.bodyRadio.isChecked():
-            print('Body Roll')
             self.health_hurt_flag = False
             self.health_wounded_flag = False
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = roll(str(self.bodyScore.value()) + 'd6')
+            self.actionDice = str(self.bodyScore.value()) + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -643,14 +646,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def mindRadio_valueChanged(self):
         if self.mindRadio.isChecked():
-            print('Mind Roll')
             self.sanity_hurt_flag = False
             self.sanity_wounded_flag = False
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = roll(str(self.mindScore.value()) + 'd6')
+            self.actionDice = str(self.mindScore.value()) + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -682,12 +684,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.spiritRadio.isChecked():
             self.morale_hurt_flag = False
             self.morale_wounded_flag = False
-            print('Spirit Roll')
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = roll(str(self.spiritScore.value()) + 'd6')
+            self.actionDice = str(self.spiritScore.value()) + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -717,8 +718,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def agilityRadio_valueChanged(self):
         if self.agilityRadio.isChecked():
-            print('Add Agility Skill')
-            self.dice_result = self.actionDice + self.agilitySkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.agilitySkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -729,8 +729,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def beautyRadio_valueChanged(self):
         if self.beautyRadio.isChecked():
-            print('Add Beauty Skill')
-            self.dice_result = self.actionDice + self.beautySkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.beautySkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -741,8 +740,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def strengthRadio_valueChanged(self):
         if self.strengthRadio.isChecked():
-            print('Add Strength Skill')
-            self.dice_result = self.actionDice + self.strengthSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.strengthSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -753,8 +751,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def knowledgeRadio_valueChanged(self):
         if self.knowledgeRadio.isChecked():
-            print('Add Knowledge Skill')
-            self.dice_result = self.actionDice + self.knowledgeSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.knowledgeSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -765,8 +762,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def perceptionRadio_valueChanged(self):
         if self.perceptionRadio.isChecked():
-            print('Add Perception Skill')
-            self.dice_result = self.actionDice + self.perceptionSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.perceptionSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -777,8 +773,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def technologyRadio_valueChanged(self):
         if self.technologyRadio.isChecked():
-            print('Add Technology Skill')
-            self.dice_result = self.actionDice + self.technologySkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.technologySkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -789,8 +784,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def charismaRadio_valueChanged(self):
         if self.charismaRadio.isChecked():
-            print('Add Charisma Skill')
-            self.dice_result = self.actionDice + self.charismaSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.charismaSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -801,8 +795,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def empathyRadio_valueChanged(self):
         if self.empathyRadio.isChecked():
-            print('Add Empathy Skill')
-            self.dice_result = self.actionDice + self.empathySkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.empathySkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -813,8 +806,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def focusRadio_valueChanged(self):
         if self.focusRadio.isChecked():
-            print('Add Focus Skill')
-            self.dice_result = self.actionDice + self.focusSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.focusSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -825,8 +817,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def boxingRadio_valueChanged(self):
         if self.boxingRadio.isChecked():
-            print('Add Boxing Skill')
-            self.dice_result = self.actionDice + self.boxingSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.boxingSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -837,8 +828,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def meleeRadio_valueChanged(self):
         if self.meleeRadio.isChecked():
-            print('Add Melee Skill')
-            self.dice_result = self.actionDice + self.meleeSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.meleeSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -849,8 +839,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def rangedRadio_valueChanged(self):
         if self.rangedRadio.isChecked():
-            print('Add Ranged Skill')
-            self.dice_result = self.actionDice + self.rangedSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.rangedSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -861,8 +850,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def artRadio_valueChanged(self):
         if self.artRadio.isChecked():
-            print('Add Art Skill')
-            self.dice_result = self.actionDice + self.artSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.artSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -873,8 +861,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def languagesRadio_valueChanged(self):
         if self.languagesRadio.isChecked():
-            print('Add Languages Skill')
-            self.dice_result = self.actionDice + self.languagesSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.languagesSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -885,8 +872,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def scienceRadio_valueChanged(self):
         if self.scienceRadio.isChecked():
-            print('Add Science Skill')
-            self.dice_result = self.actionDice + self.scienceSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.scienceSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -897,8 +883,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def clairvoyanceRadio_valueChanged(self):
         if self.clairvoyanceRadio.isChecked():
-            print('Add Clairvoyance Skill')
-            self.dice_result = self.actionDice + self.clairvoyanceSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.clairvoyanceSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -909,8 +894,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def psychokinesisRadio_valueChanged(self):
         if self.psychokinesisRadio.isChecked():
-            print('Add Psychokinesis Skill')
-            self.dice_result = self.actionDice + self.psychokinesisSkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.psychokinesisSkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -921,8 +905,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def telepathyRadio_valueChanged(self):
         if self.telepathyRadio.isChecked():
-            print('Add Telepathy Skill')
-            self.dice_result = self.actionDice + self.telepathySkill.value()
+            self.rollDice = self.actionDice + '+' + str(self.telepathySkill.value())
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -947,6 +930,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.health_wounded_flag = False
             self.sanity_wounded_flag = False
             self.morale_wounded_flag = False
+        self.dice_result = roll(self.rollDice)
+        self.print_to_box = self.rollDice + ' = ' + str(self.dice_result)
+        self.rollInput.setText(self.rollDice)
+        self.rollBrowser.append(self.print_to_box)
         if self.dice_result > self.target_num:
             self.action_result = str(self.dice_result) + ' - Successful'
         else:
