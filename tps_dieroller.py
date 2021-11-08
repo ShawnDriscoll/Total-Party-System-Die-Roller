@@ -449,13 +449,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.rangedSkill.setValue(self.char_data['Ranged'])
                 self.rangedSkill.setDisabled(True)
                 if self.char_folder != 'We Want Soviet Men Characters':
+                    self.artSkill.setValue(0)
                     self.artSkill.setDisabled(True)
+                    self.languagesSkill.setValue(0)
                     self.languagesSkill.setDisabled(True)
+                    self.scienceSkill.setValue(0)
                     self.scienceSkill.setDisabled(True)
+                    self.clairvoyanceSkill.setValue(0)
                     self.clairvoyanceSkill.setDisabled(True)
+                    self.psychokinesisSkill.setValue(0)
                     self.psychokinesisSkill.setDisabled(True)
+                    self.telepathySkill.setValue(0)
                     self.telepathySkill.setDisabled(True)
                 if self.char_folder == 'We Want Soviet Men Characters':
+                    self.artSkill.setValue(self.char_data['Art'])
+                    self.artSkill.setDisabled(True)
+                    self.languagesSkill.setValue(self.char_data['Languages'])
+                    self.languagesSkill.setDisabled(True)
+                    self.scienceSkill.setValue(self.char_data['Science'])
+                    self.scienceSkill.setDisabled(True)
                     self.clairvoyanceSkill.setValue(self.char_data['Clairvoyance'])
                     self.clairvoyanceSkill.setDisabled(True)
                     self.psychokinesisSkill.setValue(self.char_data['Psychokinesis'])
@@ -618,9 +630,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
-                self.clairvoyanceRadio.setDisabled(False)
-                self.psychokinesisRadio.setDisabled(False)
-                self.telepathyRadio.setDisabled(False)
+                if self.clairvoyanceSkill.value() > 0:
+                    self.clairvoyanceRadio.setDisabled(False)
+                if self.psychokinesisSkill.value() > 0:
+                    self.psychokinesisRadio.setDisabled(False)
+                if self.telepathySkill.value() > 0:
+                    self.telepathyRadio.setDisabled(False)
             if self.healthDisplay.text() == '2':
                 self.health_hurt_flag = True
             if self.healthDisplay.text() == '1':
@@ -652,9 +667,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
-                self.clairvoyanceRadio.setDisabled(False)
-                self.psychokinesisRadio.setDisabled(False)
-                self.telepathyRadio.setDisabled(False)
+                if self.clairvoyanceSkill.value() > 0:
+                    self.clairvoyanceRadio.setDisabled(False)
+                if self.psychokinesisSkill.value() > 0:
+                    self.psychokinesisRadio.setDisabled(False)
+                if self.telepathySkill.value() > 0:
+                    self.telepathyRadio.setDisabled(False)
             if self.sanityDisplay.text() == '2':
                 self.sanity_hurt_flag = True
             if self.sanityDisplay.text() == '1':
@@ -686,9 +704,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
-                self.clairvoyanceRadio.setDisabled(False)
-                self.psychokinesisRadio.setDisabled(False)
-                self.telepathyRadio.setDisabled(False)
+                if self.clairvoyanceSkill.value() > 0:
+                    self.clairvoyanceRadio.setDisabled(False)
+                if self.psychokinesisSkill.value() > 0:
+                    self.psychokinesisRadio.setDisabled(False)
+                if self.telepathySkill.value() > 0:
+                    self.telepathyRadio.setDisabled(False)
             if self.moraleDisplay.text() == '2':
                 self.morale_hurt_flag = True
             if self.moraleDisplay.text() == '1':
