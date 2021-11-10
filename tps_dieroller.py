@@ -97,7 +97,7 @@ class missingDialog(QDialog, Ui_missingDialog):
         self.setWindowFlags(Qt.Drawer | Qt.WindowStaysOnTopHint)
         self.setupUi(self)
         self.aboutOKButton.clicked.connect(self.acceptOKButtonClicked)
-        log.info('PyQt5 misingDialog initialized.')
+        log.info('PyQt5 missingDialog initialized.')
         
     def acceptOKButtonClicked(self):
         '''
@@ -305,7 +305,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.temp_dir = os.path.expanduser('~')
             os.chdir(self.temp_dir)
             if not os.path.exists('.tpsrpg') or not os.path.exists('.tpsrpg\\' + self.char_folder):
-                log.info(self.char_folder + ' folder not found!')
+                log.warning(self.char_folder + ' folder not found!')
+                log.warning("You'll need https://github.com/ShawnDriscoll/Planet-Matriarchy-RPG-CharGen to start making characters.")
                 self.missing_window()
                 '''
                 display alert message and disable all the things
