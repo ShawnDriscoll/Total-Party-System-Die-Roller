@@ -35,6 +35,15 @@ class Ui_aboutDialog(object):
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
+        self.bgArtLabel = QtWidgets.QLabel(aboutDialog)
+        self.bgArtLabel.setGeometry(QtCore.QRect(0, 0, 481, 301))
+        self.bgArtLabel.setText("")
+        self.bgArtLabel.setPixmap(QtGui.QPixmap(":/icons/tps_dialog.png"))
+        self.bgArtLabel.setObjectName("bgArtLabel")
+        self.bgArtLabel.raise_()
+        self.aboutOKButton.raise_()
+        self.textLabel.raise_()
+        self.line.raise_()
 
         self.retranslateUi(aboutDialog)
         QtCore.QMetaObject.connectSlotsByName(aboutDialog)
@@ -44,3 +53,4 @@ class Ui_aboutDialog(object):
         aboutDialog.setWindowTitle(_translate("aboutDialog", "About TPS DieRoller"))
         self.aboutOKButton.setText(_translate("aboutDialog", "OK"))
         self.textLabel.setText(_translate("aboutDialog", "<html><head/><body><p><span style=\" font-weight:600;\">TPS DieRoller for Windows 10</span></p><p>Version: Total Party Skills RPG</p><p>Build: 0.1.1 (Beta)</p><p>Produced by Shawn Driscoll. Copyright (C) 2022.</p><p>Get the latest manual at <a href=\"https://tpsdierollermanual.readthedocs.io/en/latest/\"><span style=\" text-decoration: underline; color:#0000ff;\">Read the Docs</span></a><br/>Visit blog at <a href=\"http://shawndriscoll.blogspot.com\"><span style=\" text-decoration: underline; color:#0000ff;\">shawndriscoll.blogspot.com</span></a><br/>For support, email <a href=\"mailto:shawndriscoll@hotmail.com?subject=TPS DieRoller 0.1.1 (Beta) for Total Party Skills RPG\"><span style=\" text-decoration: underline; color:#0000ff;\">shawndriscoll@hotmail.com</span></a></p><p>Qt GUI Toolkit is copyright (C) 2020 The Qt Company Ltd</p><p><br/></p><p>The Total Party Skills RPG was written by R. Joshua Holland. Copyright 2021 - 2022, Total Party Skills.</p></body></html>"))
+import tps_dieroller_rc

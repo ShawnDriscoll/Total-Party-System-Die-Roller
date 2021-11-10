@@ -211,13 +211,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.DMbox = True
         # self.inputDM.setDisabled(self.DMbox)
         self.selDiff.addItem('Choose One')
-        self.selDiff.addItem('Easy 3')
-        self.selDiff.addItem('Average 6')
-        self.selDiff.addItem('Hard 10')
-        self.selDiff.addItem('Very 14')
-        self.selDiff.addItem('Impossible 18')
-        self.selDiff.addItem('Random')
-        self.selDiff.addItem('Unknown')
+        self.selDiff.addItem('Easy')            # target naumber 3
+        self.selDiff.addItem('Average')         # target naumber 6
+        self.selDiff.addItem('Hard')            # target naumber 10
+        self.selDiff.addItem('Very')            # target naumber 14
+        self.selDiff.addItem('Impossible')      # target naumber 18
+        self.selDiff.addItem('Random')          # target naumber is random
+        self.selDiff.addItem('Unknown')         # target naumber is unknown
         self.selDiff.setCurrentIndex(0)
         self.selDiff.currentIndexChanged.connect(self.selDiff_valueChanged)
         self.selDiff.setDisabled(True)
@@ -483,6 +483,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.initiativeDisplay.setText('')
                 self.rollresult_Button.setDisabled(True)
                 self.actionRoll_Result.setDisabled(True)
+                #self.targetnumberDisplay.setText('')
                 self.rollresultDisplay.setText('')
                 if int(self.healthDisplay.text()) > 1:
                     self.movementDisplay.setText(str(1 + self.bodyScore.value() + self.agilitySkill.value()) + ' spaces')
@@ -570,6 +571,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         action_difficulty = [0, 3, 6, 10, 14, 18]
         if self.selDiff.currentIndex() == 0:
             self.target_num = 0
+            self.targetnumberDisplay.setText('')
             self.bodyRadio.setDisabled(True)
             self.mindRadio.setDisabled(True)
             self.spiritRadio.setDisabled(True)
@@ -580,12 +582,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.unknown = False
             self.selDiff.setCurrentIndex(randint(1,5))
             self.target_num = action_difficulty[self.selDiff.currentIndex()]
+            self.targetnumberDisplay.setText(str(self.target_num))
         elif self.selDiff.currentIndex() == 7:
             
             # The difficulty is unknown to the player.
             # The Game Master can see the difficulty shown on their console.
             self.unknown = True
             self.target_num = action_difficulty[randint(1,5)]
+            self.targetnumberDisplay.setText('?')
             log.debug('Difficulty is unknown: %d' % self.target_num)
             print('The unknown Target Number is %d' % self.target_num)
         elif self.selDiff.currentIndex() >= 1 and self.selDiff.currentIndex() <= 5:
@@ -593,6 +597,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # A regular difficulty has been given to the player to input
             self.unknown = False
             self.target_num = action_difficulty[self.selDiff.currentIndex()]
+            self.targetnumberDisplay.setText(str(self.target_num))
             log.debug('Selected Action Difficulty: %d' % self.target_num)
 
     def rollInitiative_buttonClicked(self):
