@@ -31,7 +31,6 @@ import sys
 import os
 import logging
 import json
-#import pprint
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'TPS DieRoller 0.1.1 Beta'
@@ -161,6 +160,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artSkill.setDisabled(True)
         self.languagesSkill.setDisabled(True)
         self.scienceSkill.setDisabled(True)
+        self.blessSkill.setDisabled(True)
+        self.exorcismSkill.setDisabled(True)
+        self.healingSkill.setDisabled(True)
+        self.demonologySkill.setDisabled(True)
+        self.metamorphosisSkill.setDisabled(True)
+        self.necromancySkill.setDisabled(True)
         self.clairvoyanceSkill.setDisabled(True)
         self.psychokinesisSkill.setDisabled(True)
         self.telepathySkill.setDisabled(True)
@@ -179,6 +184,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setDisabled(True)
         self.languagesRadio.setDisabled(True)
         self.scienceRadio.setDisabled(True)
+        self.blessRadio.setDisabled(True)
+        self.exorcismRadio.setDisabled(True)
+        self.healingRadio.setDisabled(True)
+        self.demonologyRadio.setDisabled(True)
+        self.metamorphosisRadio.setDisabled(True)
+        self.necromancyRadio.setDisabled(True)
         self.clairvoyanceRadio.setDisabled(True)
         self.psychokinesisRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
@@ -197,6 +208,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setChecked(False)
         self.languagesRadio.setChecked(False)
         self.scienceRadio.setChecked(False)
+        self.blessRadio.setChecked(False)
+        self.exorcismRadio.setChecked(False)
+        self.healingRadio.setChecked(False)
+        self.demonologyRadio.setChecked(False)
+        self.metamorphosisRadio.setChecked(False)
+        self.necromancyRadio.setChecked(False)
         self.clairvoyanceRadio.setChecked(False)
         self.psychokinesisRadio.setChecked(False)
         self.telepathyRadio.setChecked(False)
@@ -239,6 +256,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.toggled.connect(self.artRadio_valueChanged)
         self.languagesRadio.toggled.connect(self.languagesRadio_valueChanged)
         self.scienceRadio.toggled.connect(self.scienceRadio_valueChanged)
+        self.blessRadio.toggled.connect(self.blessRadio_valueChanged)
+        self.exorcismRadio.toggled.connect(self.exorcismRadio_valueChanged)
+        self.demonologyRadio.toggled.connect(self.demonologyRadio_valueChanged)
+        self.metamorphosisRadio.toggled.connect(self.metamorphosisRadio_valueChanged)
+        self.necromancyRadio.toggled.connect(self.necromancyRadio_valueChanged)
         self.clairvoyanceRadio.toggled.connect(self.clairvoyanceRadio_valueChanged)
         self.psychokinesisRadio.toggled.connect(self.psychokinesisRadio_valueChanged)
         self.telepathyRadio.toggled.connect(self.telepathyRadio_valueChanged)
@@ -254,13 +276,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set difficulty to not chosen yet
         self.target_num = 0
-
-        self.health_hurt_flag = False
-        self.sanity_hurt_flag = False
-        self.morale_hurt_flag = False
-        self.health_wounded_flag = False
-        self.sanity_wounded_flag = False
-        self.morale_wounded_flag = False
+        self.modified_target_num = 0
 
         # Set the About menu item
         self.popAboutDialog=aboutDialog()
@@ -360,7 +376,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             log.info('Loading ' + self.filename[0])
             with open(self.filename[0], 'r') as json_file:
                 self.char_data = json.load(json_file)
-                #pprint.pprint(self.char_data)
                 self.format_read = self.char_data['Fileformat']
                 log.info('File format is: ' + str(self.format_read))
                 self.charnameDisplay.setText(self.char_data['Name'])
@@ -388,10 +403,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.actionMod.setText('')
                 self.healthDisplay.setText(self.char_data['HEALTH'])
                 if self.healthDisplay.text() == '2':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.healthStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.healthDisplay.text() == '1':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.healthStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.healthDisplay.text() == '0':
                     self.healthStatus.setText('<span style=" color:#ff0000;">Incapacitated</span>')
@@ -401,10 +414,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.debug('Character has expired!')
                 self.sanityDisplay.setText(self.char_data['SANITY'])
                 if self.sanityDisplay.text() == '2':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.sanityDisplay.text() == '1':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.sanityDisplay.text() == '0':
                     self.sanityStatus.setText('<span style=" color:#ff0000;">Erratic</span>')
@@ -414,10 +425,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.debug('Character has snapped!')
                 self.moraleDisplay.setText(self.char_data['MORALE'])
                 if self.moraleDisplay.text() == '2':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
                     self.moraleStatus.setText('<span style=" color:#ff0000;">Hurt</span>')
                 if self.moraleDisplay.text() == '1':
-                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
                     self.moraleStatus.setText('<span style=" color:#ff0000;">Wounded</span>')
                 if self.moraleDisplay.text() == '0':
                     self.moraleStatus.setText('<span style=" color:#ff0000;">In Fear</span>')
@@ -449,26 +458,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.meleeSkill.setDisabled(True)
                 self.rangedSkill.setValue(self.char_data['Ranged'])
                 self.rangedSkill.setDisabled(True)
-                if self.char_folder != 'We Want Soviet Men Characters':
+                if self.char_folder != 'We Want Soviet Men Characters' or \
+                        self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.artSkill.setValue(0)
                     self.artSkill.setDisabled(True)
                     self.languagesSkill.setValue(0)
                     self.languagesSkill.setDisabled(True)
                     self.scienceSkill.setValue(0)
                     self.scienceSkill.setDisabled(True)
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.blessSkill.setValue(0)
+                    self.blessSkill.setDisabled(True)
+                    self.exorcismSkill.setValue(0)
+                    self.exorcismSkill.setDisabled(True)
+                    self.healingSkill.setValue(0)
+                    self.healingSkill.setDisabled(True)
+                    self.demonologySkill.setValue(0)
+                    self.demonologySkill.setDisabled(True)
+                    self.metamorphosisSkill.setValue(0)
+                    self.metamorphosisSkill.setDisabled(True)
+                    self.necromancySkill.setValue(0)
+                    self.necromancySkill.setDisabled(True)
+                if self.char_folder != 'We Want Soviet Men Characters' and self.char_folder != 'Strange Bedfellows Characters' or \
+                        self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.clairvoyanceSkill.setValue(0)
                     self.clairvoyanceSkill.setDisabled(True)
                     self.psychokinesisSkill.setValue(0)
                     self.psychokinesisSkill.setDisabled(True)
                     self.telepathySkill.setValue(0)
                     self.telepathySkill.setDisabled(True)
-                if self.char_folder == 'We Want Soviet Men Characters':
+                if self.char_folder == 'We Want Soviet Men Characters' or \
+                        self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.artSkill.setValue(self.char_data['Art'])
                     self.artSkill.setDisabled(True)
                     self.languagesSkill.setValue(self.char_data['Languages'])
                     self.languagesSkill.setDisabled(True)
                     self.scienceSkill.setValue(self.char_data['Science'])
                     self.scienceSkill.setDisabled(True)
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.blessSkill.setValue(self.char_data['Bless'])
+                    self.blessSkill.setDisabled(True)
+                    self.exorcismSkill.setValue(self.char_data['Exorcism'])
+                    self.exorcismSkill.setDisabled(True)
+                    self.healingSkill.setValue(self.char_data['Healing'])
+                    self.healingSkill.setDisabled(True)
+                    self.demonologySkill.setValue(self.char_data['Demonology'])
+                    self.demonologySkill.setDisabled(True)
+                    self.metamorphosisSkill.setValue(self.char_data['Metamorphosis'])
+                    self.metamorphosisSkill.setDisabled(True)
+                    self.necromancySkill.setValue(self.char_data['Necromancy'])
+                    self.necromancySkill.setDisabled(True)
+                if self.char_folder == 'We Want Soviet Men Characters' or self.char_folder == 'Strange Bedfellows Characters' or \
+                        self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.clairvoyanceSkill.setValue(self.char_data['Clairvoyance'])
                     self.clairvoyanceSkill.setDisabled(True)
                     self.psychokinesisSkill.setValue(self.char_data['Psychokinesis'])
@@ -484,7 +525,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.initiativeDisplay.setText('')
                 self.rollresult_Button.setDisabled(True)
                 self.actionRoll_Result.setDisabled(True)
-                #self.targetnumberDisplay.setText('')
                 self.rollresultDisplay.setText('')
                 if int(self.healthDisplay.text()) > 1:
                     self.movementDisplay.setText(str(1 + self.bodyScore.value() + self.agilitySkill.value()) + ' spaces')
@@ -543,6 +583,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.scienceRadio.setCheckable(False)
                 self.scienceRadio.setCheckable(True)
                 self.scienceRadio.setDisabled(True)
+                self.blessRadio.setCheckable(False)
+                self.blessRadio.setCheckable(True)
+                self.blessRadio.setDisabled(True)
+                self.exorcismRadio.setCheckable(False)
+                self.exorcismRadio.setCheckable(True)
+                self.exorcismRadio.setDisabled(True)
+                self.healingRadio.setCheckable(False)
+                self.healingRadio.setCheckable(True)
+                self.healingRadio.setDisabled(True)
+                self.demonologyRadio.setCheckable(False)
+                self.demonologyRadio.setCheckable(True)
+                self.demonologyRadio.setDisabled(True)
+                self.metamorphosisRadio.setCheckable(False)
+                self.metamorphosisRadio.setCheckable(True)
+                self.metamorphosisRadio.setDisabled(True)
+                self.necromancyRadio.setCheckable(False)
+                self.necromancyRadio.setCheckable(True)
+                self.necromancyRadio.setDisabled(True)
                 self.clairvoyanceRadio.setCheckable(False)
                 self.clairvoyanceRadio.setCheckable(True)
                 self.clairvoyanceRadio.setDisabled(True)
@@ -615,9 +673,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         log.debug('Initiative roll was ' + str(self.initiative))
     
     def bodyRadio_valueChanged(self):
+        '''
+        Body Action was chosen
+        '''
         if self.bodyRadio.isChecked():
-            self.health_hurt_flag = False
-            self.health_wounded_flag = False
+            self.actionMod.setText('')
+            self.modified_target_num = self.target_num
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
@@ -635,7 +696,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'We Want Soviet Men Characters':
+            if self.char_folder == 'We Want Soviet Men Characters' or \
+                    self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
@@ -645,15 +707,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.psychokinesisRadio.setDisabled(False)
                 if self.telepathySkill.value() > 0:
                     self.telepathyRadio.setDisabled(False)
+            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                self.blessRadio.setDisabled(False)
+                self.exorcismRadio.setDisabled(False)
+                self.healingRadio.setDisabled(False)
+                self.demonologyRadio.setDisabled(False)
+                self.metamorphosisRadio.setDisabled(False)
+                self.necromancyRadio.setDisabled(False)
             if self.healthDisplay.text() == '2':
-                self.health_hurt_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
+                    self.modified_target_num += 2
+                    log.debug('Hurt character receives +2 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
+                    self.modified_target_num += 1
+                    log.debug('Hurt character receives +1 to difficulty: ' + str(self.modified_target_num))
             if self.healthDisplay.text() == '1':
-                self.health_wounded_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+4</span>')
+                    self.modified_target_num += 4
+                    log.debug('Hurt character receives +4 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
+                    self.modified_target_num += 3
+                    log.debug('Hurt character receives +3 to difficulty: ' + str(self.modified_target_num))
     
     def mindRadio_valueChanged(self):
+        '''
+        Mind Action was chosen
+        '''
         if self.mindRadio.isChecked():
-            self.sanity_hurt_flag = False
-            self.sanity_wounded_flag = False
+            self.actionMod.setText('')
+            self.modified_target_num = self.target_num
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
@@ -671,7 +757,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'We Want Soviet Men Characters':
+            if self.char_folder == 'We Want Soviet Men Characters' or \
+                    self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
@@ -681,15 +768,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.psychokinesisRadio.setDisabled(False)
                 if self.telepathySkill.value() > 0:
                     self.telepathyRadio.setDisabled(False)
+            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                self.blessRadio.setDisabled(False)
+                self.exorcismRadio.setDisabled(False)
+                self.healingRadio.setDisabled(False)
+                self.demonologyRadio.setDisabled(False)
+                self.metamorphosisRadio.setDisabled(False)
+                self.necromancyRadio.setDisabled(False)
             if self.sanityDisplay.text() == '2':
-                self.sanity_hurt_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
+                    self.modified_target_num += 2
+                    log.debug('Hurt character receives +2 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
+                    self.modified_target_num += 1
+                    log.debug('Hurt character receives +1 to difficulty: ' + str(self.modified_target_num))
             if self.sanityDisplay.text() == '1':
-                self.sanity_wounded_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+4</span>')
+                    self.modified_target_num += 4
+                    log.debug('Hurt character receives +4 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
+                    self.modified_target_num += 3
+                    log.debug('Hurt character receives +3 to difficulty: ' + str(self.modified_target_num))
     
     def spiritRadio_valueChanged(self):
+        '''
+        Spirit Action was chosen
+        '''
         if self.spiritRadio.isChecked():
-            self.morale_hurt_flag = False
-            self.morale_wounded_flag = False
+            self.actionMod.setText('')
+            self.modified_target_num = self.target_num
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
@@ -707,7 +818,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'We Want Soviet Men Characters':
+            if self.char_folder == 'We Want Soviet Men Characters' or \
+                    self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                 self.artRadio.setDisabled(False)
                 self.languagesRadio.setDisabled(False)
                 self.scienceRadio.setDisabled(False)
@@ -717,10 +829,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.psychokinesisRadio.setDisabled(False)
                 if self.telepathySkill.value() > 0:
                     self.telepathyRadio.setDisabled(False)
+            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                self.blessRadio.setDisabled(False)
+                self.exorcismRadio.setDisabled(False)
+                self.healingRadio.setDisabled(False)
+                self.demonologyRadio.setDisabled(False)
+                self.metamorphosisRadio.setDisabled(False)
+                self.necromancyRadio.setDisabled(False)
             if self.moraleDisplay.text() == '2':
-                self.morale_hurt_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
+                    self.modified_target_num += 2
+                    log.debug('Hurt character receives +2 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+1</span>')
+                    self.modified_target_num += 1
+                    log.debug('Hurt character receives +1 to difficulty: ' + str(self.modified_target_num))
             if self.moraleDisplay.text() == '1':
-                self.morale_wounded_flag = True
+                #self.morale_wounded_flag = True
+                if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+                    self.actionMod.setText('<span style=" color:#ff0000;">+4</span>')
+                    self.modified_target_num += 4
+                    log.debug('Hurt character receives +4 to difficulty: ' + str(self.modified_target_num))
+                else:
+                    self.actionMod.setText('<span style=" color:#ff0000;">+3</span>')
+                    self.modified_target_num += 3
+                    log.debug('Hurt character receives +3 to difficulty: ' + str(self.modified_target_num))
     
     def agilityRadio_valueChanged(self):
         if self.agilityRadio.isChecked():
@@ -887,6 +1021,72 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
     
+    def blessRadio_valueChanged(self):
+        if self.blessRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.blessSkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def exorcismRadio_valueChanged(self):
+        if self.exorcismRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.exorcismSkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def healingRadio_valueChanged(self):
+        if self.healingRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.healingSkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def demonologyRadio_valueChanged(self):
+        if self.demonologyRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.demonologySkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def metamorphosisRadio_valueChanged(self):
+        if self.metamorphosisRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.metamorphosisSkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
+    def necromancyRadio_valueChanged(self):
+        if self.necromancyRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + str(self.necromancySkill.value())
+            self.bodyRadio.setDisabled(True)
+            self.bodyScore.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.mindScore.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.spiritScore.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+    
     def clairvoyanceRadio_valueChanged(self):
         if self.clairvoyanceRadio.isChecked():
             self.rollDice = self.actionDice + '+' + str(self.clairvoyanceSkill.value())
@@ -924,23 +1124,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Display the roll and action result
         '''
-        if self.health_hurt_flag or self.sanity_hurt_flag or self.morale_hurt_flag:
-            self.target_num += 1
-            log.debug('Hurt character receives +1 to difficulty: ' + str(self.target_num))
-            self.health_hurt_flag = False
-            self.sanity_hurt_flag = False
-            self.morale_hurt_flag = False
-        if self.health_wounded_flag or self.sanity_wounded_flag or self.morale_wounded_flag:
-            self.target_num += 3
-            log.debug('Wounded character receives +3 to difficulty: ' + str(self.target_num))
-            self.health_wounded_flag = False
-            self.sanity_wounded_flag = False
-            self.morale_wounded_flag = False
         self.dice_result = roll(self.rollDice)
         self.print_to_box = self.rollDice + ' = ' + str(self.dice_result)
         self.rollInput.setText(self.rollDice)
         self.rollBrowser.append(self.print_to_box)
-        if self.dice_result > self.target_num:
+        if self.dice_result > self.modified_target_num:
             self.action_result = str(self.dice_result) + ' - Successful'
         else:
             self.action_result = str(self.dice_result) + ' - Failed'
@@ -972,6 +1160,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setDisabled(True)
         self.languagesRadio.setDisabled(True)
         self.scienceRadio.setDisabled(True)
+        self.blessRadio.setDisabled(True)
+        self.exorcismRadio.setDisabled(True)
+        self.healingRadio.setDisabled(True)
+        self.demonologyRadio.setDisabled(True)
+        self.metamorphosisRadio.setDisabled(True)
+        self.necromancyRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
         self.psychokinesisRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
@@ -1063,6 +1257,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scienceRadio.setCheckable(False)
         self.scienceRadio.setCheckable(True)
         self.scienceRadio.setDisabled(True)
+        self.blessRadio.setDisabled(False)
+        self.blessRadio.setCheckable(False)
+        self.blessRadio.setCheckable(True)
+        self.blessRadio.setDisabled(True)
+        self.exorcismRadio.setDisabled(False)
+        self.exorcismRadio.setCheckable(False)
+        self.exorcismRadio.setCheckable(True)
+        self.exorcismRadio.setDisabled(True)
+        self.healingRadio.setDisabled(False)
+        self.healingRadio.setCheckable(False)
+        self.healingRadio.setCheckable(True)
+        self.healingRadio.setDisabled(True)
+        self.demonologyRadio.setDisabled(False)
+        self.demonologyRadio.setCheckable(False)
+        self.demonologyRadio.setCheckable(True)
+        self.demonologyRadio.setDisabled(True)
+        self.metamorphosisRadio.setDisabled(False)
+        self.metamorphosisRadio.setCheckable(False)
+        self.metamorphosisRadio.setCheckable(True)
+        self.metamorphosisRadio.setDisabled(True)
+        self.necromancyRadio.setDisabled(False)
+        self.necromancyRadio.setCheckable(False)
+        self.necromancyRadio.setCheckable(True)
+        self.necromancyRadio.setDisabled(True)
         self.clairvoyanceRadio.setDisabled(False)
         self.clairvoyanceRadio.setCheckable(False)
         self.clairvoyanceRadio.setCheckable(True)
