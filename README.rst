@@ -48,6 +48,7 @@ You can always run the .EXE version for Windows 10 if you don't have the Python 
 
 The Total Party Skills RPG was written by R. Joshua Holland.
 Copyright 2021 - 2022, Total Party Skills.
+https://www.drivethrurpg.com/browse/pub/20325/Total-Party-Skills
 
 
 Contact
