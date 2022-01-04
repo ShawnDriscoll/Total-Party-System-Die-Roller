@@ -1166,7 +1166,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.demonologyRadio.setDisabled(True)
         self.metamorphosisRadio.setDisabled(True)
         self.necromancyRadio.setDisabled(True)
-        self.telepathyRadio.setDisabled(True)
+        self.clairvoyanceRadio.setDisabled(True)
         self.psychokinesisRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
         log.debug('Displayed action result: ' + self.action_result)
