@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.1.1 Beta for the Total Party Skills RPG
+TPS DieRoller 0.1.2 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -21,10 +21,10 @@ from PyQt5.QtWidgets import *
 #from PyQt5 import uic
 #import PyQt5.QtMultimedia as MM
 import time
-from mainwindow_011b import Ui_MainWindow
-from aboutdialog_011b import Ui_aboutDialog
-from alertdialog_011b import Ui_alertDialog
-from missingdialog_011b import Ui_missingDialog
+from mainwindow import Ui_MainWindow
+from aboutdialog import Ui_aboutDialog
+from alertdialog import Ui_alertDialog
+from missingdialog import Ui_missingDialog
 from random import randint
 from rpg_tools.PyDiceroll import roll
 import sys
@@ -33,8 +33,8 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.1.1 Beta'
-__version__ = '0.1.1b'
+__app__ = 'TPS DieRoller 0.1.2 Beta'
+__version__ = '0.1.2b'
 __py_version__ = '3.9.7'
 __expired_tag__ = False
 
@@ -46,7 +46,7 @@ Status Level
 0 = Incapacitated
 '''
 
-#form_class = uic.loadUiType("mainwindow_011b.ui")[0]
+#form_class = uic.loadUiType("mainwindow.ui")[0]
 
 class aboutDialog(QDialog, Ui_aboutDialog):
     def __init__(self):
@@ -116,7 +116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         super().__init__()
         
-        #uic.loadUi("mainwindow_011b.ui", self)
+        #uic.loadUi("mainwindow.ui", self)
         
         log.info('PyQt5 MainWindow initializing...')
         self.setupUi(self)
@@ -663,7 +663,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Roll for Initiative
         '''
-        self.initiative = str(self.mindScore.value()) + 'd6'
+        self.initiative = str(self.mindScore.value()) + 'd6+' + str(self.charismaSkill.value())
         self.dice_result = roll(self.initiative)
         self.print_to_box = self.initiative + ' = ' + str(self.dice_result)
         self.rollInput.setText(self.initiative)
@@ -1377,7 +1377,7 @@ if __name__ == '__main__':
 #                         datefmt='%a, %d %b %Y %H:%M:%S',
 #                         filemode = 'w')
 
-    log = logging.getLogger('TPS DieRoller011b')
+    log = logging.getLogger('TPS DieRoller')
     log.setLevel(logging.DEBUG)
 
     if not os.path.exists('Logs'):

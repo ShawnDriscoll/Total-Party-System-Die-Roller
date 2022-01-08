@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow_011b.ui'
+# Form implementation generated from reading ui file 'mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -1522,7 +1522,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "TPS DieRoller 0.1.1 (Beta)"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "TPS DieRoller 0.1.2 (Beta)"))
         self.clearIDR_Button.setToolTip(_translate("MainWindow", "Clear Initiative, Difficulty, and Result"))
         self.clearIDR_Button.setStatusTip(_translate("MainWindow", "Clear initiative, difficulty, and result"))
         self.clearIDR_Button.setText(_translate("MainWindow", "Clear\n"

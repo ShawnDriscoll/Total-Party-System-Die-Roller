@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'missingdialog_011b.ui'
+# Form implementation generated from reading ui file 'missingdialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -39,4 +39,4 @@ class Ui_missingDialog(object):
         _translate = QtCore.QCoreApplication.translate
         missingDialog.setWindowTitle(_translate("missingDialog", "Missing Characters!"))
         self.aboutOKButton.setText(_translate("missingDialog", "OK"))
-        self.textLabel.setText(_translate("missingDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">No characters found!</span></p><p align=\"center\"><span style=\" font-size:10pt;\">You need to first run a TPS CharGen app.</span></p><p align=\"center\"><span style=\" font-size:10pt;\">One can be downloaded from </span><a href=\"https://github.com/ShawnDriscoll/Planet-Matriarchy-RPG-CharGen\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub</span></a><span style=\" font-size:10pt;\">.</span></p><p align=\"center\"><span style=\" font-size:10pt;\">For help, email </span><a href=\"mailto:shawndriscoll@hotmail.com?subject=TPS DieRoller 0.1.1 [Missing Characters!]\"><span style=\" font-size:10pt; text-decoration: underline; color:#0000ff;\">shawndriscoll@hotmail.com</span></a></p></body></html>"))
+        self.textLabel.setText(_translate("missingDialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">No characters found!</span></p><p align=\"center\"><span style=\" font-size:10pt;\">You need to first run a TPS CharGen app.</span></p><p align=\"center\"><span style=\" font-size:10pt;\">One can be downloaded from </span><a href=\"https://github.com/ShawnDriscoll/Planet-Matriarchy-RPG-CharGen\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub</span></a><span style=\" font-size:10pt;\">.</span></p><p align=\"center\"><span style=\" font-size:10pt;\">For help, email </span><a href=\"mailto:shawndriscoll@hotmail.com?subject=TPS DieRoller 0.1.2 [Missing Characters!]\"><span style=\" font-size:10pt; text-decoration: underline; color:#0000ff;\">shawndriscoll@hotmail.com</span></a></p></body></html>"))
