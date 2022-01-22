@@ -1195,9 +1195,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rollInput.setText(self.rollDice)
         self.rollBrowser.append(self.print_to_box)
         if self.dice_result > self.modified_target_num:
-            self.action_result = str(self.dice_result) + ' - Successful.'
+            self.action_result = str(self.dice_result) + ' - Successful'
         else:
-            self.action_result = str(self.dice_result) + ' - Failed.'
+            self.action_result = str(self.dice_result) + ' - Failed'
         self.rollresultDisplay.setText(self.action_result)
         self.agilitySkill.setDisabled(True)
         self.beautySkill.setDisabled(True)
@@ -1235,7 +1235,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clairvoyanceRadio.setDisabled(True)
         self.psychokinesisRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
-        log.debug('Displayed action result: ' + self.action_result)
+        log.debug('Displayed action result: ' + self.action_result + '.')
 
     def clearIDR_buttonClicked(self):
         '''
