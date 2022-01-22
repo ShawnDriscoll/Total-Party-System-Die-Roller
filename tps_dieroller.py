@@ -932,6 +932,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def beautyRadio_valueChanged(self):
         if self.beautyRadio.isChecked():
@@ -943,6 +944,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def strengthRadio_valueChanged(self):
         if self.strengthRadio.isChecked():
@@ -954,6 +956,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def knowledgeRadio_valueChanged(self):
         if self.knowledgeRadio.isChecked():
@@ -965,6 +968,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def perceptionRadio_valueChanged(self):
         if self.perceptionRadio.isChecked():
@@ -976,6 +980,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def technologyRadio_valueChanged(self):
         if self.technologyRadio.isChecked():
@@ -987,6 +992,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def charismaRadio_valueChanged(self):
         if self.charismaRadio.isChecked():
@@ -998,6 +1004,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def empathyRadio_valueChanged(self):
         if self.empathyRadio.isChecked():
@@ -1009,6 +1016,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def focusRadio_valueChanged(self):
         if self.focusRadio.isChecked():
@@ -1020,6 +1028,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def boxingRadio_valueChanged(self):
         if self.boxingRadio.isChecked():
@@ -1031,6 +1040,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def meleeRadio_valueChanged(self):
         if self.meleeRadio.isChecked():
@@ -1042,6 +1052,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def rangedRadio_valueChanged(self):
         if self.rangedRadio.isChecked():
@@ -1053,6 +1064,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def artRadio_valueChanged(self):
         if self.artRadio.isChecked():
@@ -1064,6 +1076,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def languagesRadio_valueChanged(self):
         if self.languagesRadio.isChecked():
@@ -1075,6 +1088,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def scienceRadio_valueChanged(self):
         if self.scienceRadio.isChecked():
@@ -1086,6 +1100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def blessRadio_valueChanged(self):
         if self.blessRadio.isChecked():
@@ -1097,6 +1112,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def exorcismRadio_valueChanged(self):
         if self.exorcismRadio.isChecked():
@@ -1108,6 +1124,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def healingRadio_valueChanged(self):
         if self.healingRadio.isChecked():
@@ -1119,6 +1136,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def demonologyRadio_valueChanged(self):
         if self.demonologyRadio.isChecked():
@@ -1130,6 +1148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def metamorphosisRadio_valueChanged(self):
         if self.metamorphosisRadio.isChecked():
@@ -1141,6 +1160,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def necromancyRadio_valueChanged(self):
         if self.necromancyRadio.isChecked():
@@ -1152,6 +1172,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def clairvoyanceRadio_valueChanged(self):
         if self.clairvoyanceRadio.isChecked():
@@ -1163,6 +1184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def psychokinesisRadio_valueChanged(self):
         if self.psychokinesisRadio.isChecked():
@@ -1174,6 +1196,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def telepathyRadio_valueChanged(self):
         if self.telepathyRadio.isChecked():
@@ -1185,6 +1208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spiritRadio.setDisabled(True)
             self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
     
     def rollresult_buttonClicked(self):
         '''
@@ -1199,6 +1223,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.action_result = str(self.dice_result) + ' - Failed'
         self.rollresultDisplay.setText(self.action_result)
+        self.rollresult_Button.setDisabled(True)
+        self.actionRoll_Result.setDisabled(True)
         self.agilitySkill.setDisabled(True)
         self.beautySkill.setDisabled(True)
         self.strengthSkill.setDisabled(True)
@@ -1254,6 +1280,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.spiritRadio.setCheckable(False)
         self.spiritRadio.setCheckable(True)
         self.spiritRadio.setDisabled(True)
+        self.rollInitiative_Button.setDisabled(False)
         self.actionRoll_Initiative.setDisabled(False)
         self.initiativeDisplay.setText('')
         self.rollresult_Button.setDisabled(True)
