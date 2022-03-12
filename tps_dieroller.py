@@ -1,11 +1,11 @@
 #
 #   TPS DieRoller Beta for the Total Party Skills RPG
-#   Written for Python 3.9.7
+#   Written for Python 3.9.10
 #
 ##############################################################
 
 """
-TPS DieRoller 0.2.0 Beta for the Total Party Skills RPG
+TPS DieRoller 0.2.1 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,9 +33,9 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.2.0 (Beta)'
-__version__ = '0.2.0b'
-__py_version__ = '3.9.7'
+__app__ = 'TPS DieRoller 0.2.1 (Beta)'
+__version__ = '0.2.1b'
+__py_version__ = '3.9.10'
 __expired_tag__ = False
 
 '''
@@ -526,7 +526,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.clairvoyanceSkill.setValue(self.char_data['Clairvoyance'])
                 self.clairvoyanceSkill.setDisabled(True)
                 
-                if self.char_data['Psychokinesis'] == -1:
+                if self.char_data['Psychokinesis'] == -1 :
                     self.psychokinesisSkill.setValue(0)
                 else:
                     self.psychokinesisSkill.setValue(self.char_data['Psychokinesis'])
@@ -745,30 +745,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'We Want Soviet Men Characters' or \
-                    self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+            if self.char_data['Art'] != -1:
                 self.artRadio.setDisabled(False)
+            if self.char_data['Languages'] != -1:
                 self.languagesRadio.setDisabled(False)
+            if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-                if self.clairvoyanceSkill.value() > 0:
-                    self.clairvoyanceRadio.setDisabled(False)
-                if self.psychokinesisSkill.value() > 0:
-                    self.psychokinesisRadio.setDisabled(False)
-                if self.telepathySkill.value() > 0:
-                    self.telepathyRadio.setDisabled(False)
-            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
-                if self.blessSkill.value() > 0:
-                    self.blessRadio.setDisabled(False)
-                if self.exorcismSkill.value() > 0:
-                    self.exorcismRadio.setDisabled(False)
-                if self.healingSkill.value() > 0:
-                    self.healingRadio.setDisabled(False)
-                if self.demonologySkill.value() > 0:
-                    self.demonologyRadio.setDisabled(False)
-                if self.metamorphosisSkill.value() > 0:
-                    self.metamorphosisRadio.setDisabled(False)
-                if self.necromancySkill.value() > 0:
-                    self.necromancyRadio.setDisabled(False)
+            if self.char_data['Clairvoyance'] > 0:
+                self.clairvoyanceRadio.setDisabled(False)
+            if self.char_data['Psychokinesis'] > 0:
+                self.psychokinesisRadio.setDisabled(False)
+            if self.char_data['Telepathy'] > 0:
+                self.telepathyRadio.setDisabled(False)
+            if self.char_data['Bless'] > 0:
+                self.blessRadio.setDisabled(False)
+            if self.char_data['Exorcism'] > 0:
+                self.exorcismRadio.setDisabled(False)
+            if self.char_data['Healing'] > 0:
+                self.healingRadio.setDisabled(False)
+            if self.char_data['Demonology'] > 0:
+                self.demonologyRadio.setDisabled(False)
+            if self.char_data['Metamorphosis'] > 0:
+                self.metamorphosisRadio.setDisabled(False)
+            if self.char_data['Necromancy'] > 0:
+                self.necromancyRadio.setDisabled(False)
             if self.healthDisplay.text() == '2':
                 if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
@@ -812,29 +812,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+            if self.char_data['Art'] != -1:
                 self.artRadio.setDisabled(False)
+            if self.char_data['Languages'] != -1:
                 self.languagesRadio.setDisabled(False)
+            if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-                if self.clairvoyanceSkill.value() > 0:
-                    self.clairvoyanceRadio.setDisabled(False)
-                if self.psychokinesisSkill.value() > 0:
-                    self.psychokinesisRadio.setDisabled(False)
-                if self.telepathySkill.value() > 0:
-                    self.telepathyRadio.setDisabled(False)
-            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
-                if self.blessSkill.value() > 0:
-                    self.blessRadio.setDisabled(False)
-                if self.exorcismSkill.value() > 0:
-                    self.exorcismRadio.setDisabled(False)
-                if self.healingSkill.value() > 0:
-                    self.healingRadio.setDisabled(False)
-                if self.demonologySkill.value() > 0:
-                    self.demonologyRadio.setDisabled(False)
-                if self.metamorphosisSkill.value() > 0:
-                    self.metamorphosisRadio.setDisabled(False)
-                if self.necromancySkill.value() > 0:
-                    self.necromancyRadio.setDisabled(False)
+            if self.char_data['Clairvoyance'] > 0:
+                self.clairvoyanceRadio.setDisabled(False)
+            if self.char_data['Psychokinesis'] > 0:
+                self.psychokinesisRadio.setDisabled(False)
+            if self.char_data['Telepathy'] > 0:
+                self.telepathyRadio.setDisabled(False)
+            if self.char_data['Bless'] > 0:
+                self.blessRadio.setDisabled(False)
+            if self.char_data['Exorcism'] > 0:
+                self.exorcismRadio.setDisabled(False)
+            if self.char_data['Healing'] > 0:
+                self.healingRadio.setDisabled(False)
+            if self.char_data['Demonology'] > 0:
+                self.demonologyRadio.setDisabled(False)
+            if self.char_data['Metamorphosis'] > 0:
+                self.metamorphosisRadio.setDisabled(False)
+            if self.char_data['Necromancy'] > 0:
+                self.necromancyRadio.setDisabled(False)
             if self.sanityDisplay.text() == '2':
                 if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
@@ -878,30 +879,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.boxingRadio.setDisabled(False)
             self.meleeRadio.setDisabled(False)
             self.rangedRadio.setDisabled(False)
-            if self.char_folder == 'We Want Soviet Men Characters' or \
-                    self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
+            if self.char_data['Art'] != -1:
                 self.artRadio.setDisabled(False)
+            if self.char_data['Languages'] != -1:
                 self.languagesRadio.setDisabled(False)
+            if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-                if self.clairvoyanceSkill.value() > 0:
-                    self.clairvoyanceRadio.setDisabled(False)
-                if self.psychokinesisSkill.value() > 0:
-                    self.psychokinesisRadio.setDisabled(False)
-                if self.telepathySkill.value() > 0:
-                    self.telepathyRadio.setDisabled(False)
-            if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
-                if self.blessSkill.value() > 0:
-                    self.blessRadio.setDisabled(False)
-                if self.exorcismSkill.value() > 0:
-                    self.exorcismRadio.setDisabled(False)
-                if self.healingSkill.value() > 0:
-                    self.healingRadio.setDisabled(False)
-                if self.demonologySkill.value() > 0:
-                    self.demonologyRadio.setDisabled(False)
-                if self.metamorphosisSkill.value() > 0:
-                    self.metamorphosisRadio.setDisabled(False)
-                if self.necromancySkill.value() > 0:
-                    self.necromancyRadio.setDisabled(False)
+            if self.char_data['Clairvoyance'] > 0:
+                self.clairvoyanceRadio.setDisabled(False)
+            if self.char_data['Psychokinesis'] > 0:
+                self.psychokinesisRadio.setDisabled(False)
+            if self.char_data['Telepathy'] > 0:
+                self.telepathyRadio.setDisabled(False)
+            if self.char_data['Bless'] > 0:
+                self.blessRadio.setDisabled(False)
+            if self.char_data['Exorcism'] > 0:
+                self.exorcismRadio.setDisabled(False)
+            if self.char_data['Healing'] > 0:
+                self.healingRadio.setDisabled(False)
+            if self.char_data['Demonology'] > 0:
+                self.demonologyRadio.setDisabled(False)
+            if self.char_data['Metamorphosis'] > 0:
+                self.metamorphosisRadio.setDisabled(False)
+            if self.char_data['Necromancy'] > 0:
+                self.necromancyRadio.setDisabled(False)
             if self.moraleDisplay.text() == '2':
                 if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters':
                     self.actionMod.setText('<span style=" color:#ff0000;">+2</span>')
