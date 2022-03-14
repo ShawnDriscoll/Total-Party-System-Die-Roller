@@ -69,6 +69,10 @@ Things To-Do
 
 **Known History**
 
+* v0.3.0b
+
+  Replaced all the GUI QSpinBox objects with QLabel objects. QSpinBox objects ended up not being needed for this program.
+
 * v0.2.1b
 
   Added checks when loading characters with psionic skills.

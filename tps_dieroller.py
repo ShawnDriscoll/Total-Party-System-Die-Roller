@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.2.1 Beta for the Total Party Skills RPG
+TPS DieRoller 0.3.0 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,8 +33,8 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.2.1 (Beta)'
-__version__ = '0.2.1b'
+__app__ = 'TPS DieRoller 0.3.0 (Beta)'
+__version__ = '0.3.0b'
 __py_version__ = '3.9.10'
 __expired_tag__ = False
 
@@ -313,10 +313,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.clearRollHistory.setDisabled(True)
             self.rollBrowser.setDisabled(True)
             self.action_ClearRollHistory.setDisabled(True)
-            self.charnameDisplay.setDisabled(True)
-            self.healthDisplay.setDisabled(True)
-            self.sanityDisplay.setDisabled(True)
-            self.moraleDisplay.setDisabled(True)
         else:
             self.temp_dir = os.path.expanduser('~')
             os.chdir(self.temp_dir)
@@ -342,10 +338,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.clearRollHistory.setDisabled(True)
                 self.rollBrowser.setDisabled(True)
                 self.action_ClearRollHistory.setDisabled(True)
-                self.charnameDisplay.setDisabled(True)
-                self.healthDisplay.setDisabled(True)
-                self.sanityDisplay.setDisabled(True)
-                self.moraleDisplay.setDisabled(True)
             else:
                 os.chdir(self.temp_dir + '\.tpsrpg')
                 f = open('tps.ini', 'r')
@@ -387,12 +379,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.charnameDisplay.setDisabled(False)
                 self.selDiff.setCurrentIndex(0)
                 self.selDiff.setDisabled(True)
-                self.bodyScore.setValue(self.char_data['BODY'])
-                self.bodyScore.setDisabled(True)
-                self.mindScore.setValue(self.char_data['MIND'])
-                self.mindScore.setDisabled(True)
-                self.spiritScore.setValue(self.char_data['SPIRIT'])
-                self.spiritScore.setDisabled(True)
+                self.bodyScore.setText(str(self.char_data['BODY']))
+                self.bodyScore.setDisabled(False)
+                self.mindScore.setText(str(self.char_data['MIND']))
+                self.mindScore.setDisabled(False)
+                self.spiritScore.setText(str(self.char_data['SPIRIT']))
+                self.spiritScore.setDisabled(False)
                 self.bodyRadio.setCheckable(False)
                 self.bodyRadio.setCheckable(True)
                 self.bodyRadio.setDisabled(True)
@@ -441,102 +433,102 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if int(self.moraleDisplay.text()) < 0:
                     self.moraleStatus.setText('<span style=" color:#ff0000;">Submit</span>')
                     log.debug('Character has submit!')
-                self.agilitySkill.setValue(self.char_data['Agility'])
-                self.agilitySkill.setDisabled(True)
-                self.beautySkill.setValue(self.char_data['Beauty'])
-                self.beautySkill.setDisabled(True)
-                self.strengthSkill.setValue(self.char_data['Strength'])
-                self.strengthSkill.setDisabled(True)
-                self.knowledgeSkill.setValue(self.char_data['Knowledge'])
-                self.knowledgeSkill.setDisabled(True)
-                self.perceptionSkill.setValue(self.char_data['Perception'])
-                self.perceptionSkill.setDisabled(True)
-                self.technologySkill.setValue(self.char_data['Technology'])
-                self.technologySkill.setDisabled(True)
-                self.charismaSkill.setValue(self.char_data['Charisma'])
-                self.charismaSkill.setDisabled(True)
-                self.empathySkill.setValue(self.char_data['Empathy'])
-                self.empathySkill.setDisabled(True)
-                self.focusSkill.setValue(self.char_data['Focus'])
-                self.focusSkill.setDisabled(True)
-                self.boxingSkill.setValue(self.char_data['Boxing'])
-                self.boxingSkill.setDisabled(True)
-                self.meleeSkill.setValue(self.char_data['Melee'])
-                self.meleeSkill.setDisabled(True)
-                self.rangedSkill.setValue(self.char_data['Ranged'])
-                self.rangedSkill.setDisabled(True)
+                self.agilitySkill.setText(str(self.char_data['Agility']))
+                self.agilitySkill.setDisabled(False)
+                self.beautySkill.setText(str(self.char_data['Beauty']))
+                self.beautySkill.setDisabled(False)
+                self.strengthSkill.setText(str(self.char_data['Strength']))
+                self.strengthSkill.setDisabled(False)
+                self.knowledgeSkill.setText(str(self.char_data['Knowledge']))
+                self.knowledgeSkill.setDisabled(False)
+                self.perceptionSkill.setText(str(self.char_data['Perception']))
+                self.perceptionSkill.setDisabled(False)
+                self.technologySkill.setText(str(self.char_data['Technology']))
+                self.technologySkill.setDisabled(False)
+                self.charismaSkill.setText(str(self.char_data['Charisma']))
+                self.charismaSkill.setDisabled(False)
+                self.empathySkill.setText(str(self.char_data['Empathy']))
+                self.empathySkill.setDisabled(False)
+                self.focusSkill.setText(str(self.char_data['Focus']))
+                self.focusSkill.setDisabled(False)
+                self.boxingSkill.setText(str(self.char_data['Boxing']))
+                self.boxingSkill.setDisabled(False)
+                self.meleeSkill.setText(str(self.char_data['Melee']))
+                self.meleeSkill.setDisabled(False)
+                self.rangedSkill.setText(str(self.char_data['Ranged']))
+                self.rangedSkill.setDisabled(False)
                 
                 if self.char_data['Art'] == -1:
-                    self.artSkill.setValue(0)
+                    self.artSkill.setText('0')
                 else:
-                    self.artSkill.setValue(self.char_data['Art'])
-                self.artSkill.setDisabled(True)
+                    self.artSkill.setText(str(self.char_data['Art']))
+                self.artSkill.setDisabled(False)
                 
                 if self.char_data['Languages'] == -1:
-                    self.languagesSkill.setValue(0)
+                    self.languagesSkill.setText('0')
                 else:
-                    self.languagesSkill.setValue(self.char_data['Languages'])
-                self.languagesSkill.setDisabled(True)
+                    self.languagesSkill.setText(str(self.char_data['Languages']))
+                self.languagesSkill.setDisabled(False)
                 
                 if self.char_data['Science'] == -1:
-                    self.scienceSkill.setValue(0)
+                    self.scienceSkill.setText('0')
                 else:
-                    self.scienceSkill.setValue(self.char_data['Science'])
-                self.scienceSkill.setDisabled(True)
+                    self.scienceSkill.setText(str(self.char_data['Science']))
+                self.scienceSkill.setDisabled(False)
                 
                 if self.char_data['Bless'] == -1:
-                    self.blessSkill.setValue(0)
+                    self.blessSkill.setText('0')
                 else:
-                    self.blessSkill.setValue(self.char_data['Bless'])
-                self.blessSkill.setDisabled(True)
+                    self.blessSkill.setText(str(self.char_data['Bless']))
+                self.blessSkill.setDisabled(False)
                 
                 if self.char_data['Exorcism'] == -1:
-                    self.exorcismSkill.setValue(0)
+                    self.exorcismSkill.setText('0')
                 else:
-                    self.exorcismSkill.setValue(self.char_data['Exorcism'])
-                self.exorcismSkill.setDisabled(True)
+                    self.exorcismSkill.setText(str(self.char_data['Exorcism']))
+                self.exorcismSkill.setDisabled(False)
                 
                 if self.char_data['Healing'] == -1:
-                    self.healingSkill.setValue(0)
+                    self.healingSkill.setText('0')
                 else:
-                    self.healingSkill.setValue(self.char_data['Healing'])
-                self.healingSkill.setDisabled(True)
+                    self.healingSkill.setText(str(self.char_data['Healing']))
+                self.healingSkill.setDisabled(False)
                 
                 if self.char_data['Demonology'] == -1:
-                    self.demonologySkill.setValue(0)
+                    self.demonologySkill.setText('0')
                 else:
-                    self.demonologySkill.setValue(self.char_data['Demonology'])
-                self.demonologySkill.setDisabled(True)
+                    self.demonologySkill.setText(str(self.char_data['Demonology']))
+                self.demonologySkill.setDisabled(False)
                 
                 if self.char_data['Metamorphosis'] == -1:
-                    self.metamorphosisSkill.setValue(0)
+                    self.metamorphosisSkill.setText('0')
                 else:
-                    self.metamorphosisSkill.setValue(self.char_data['Metamorphosis'])
-                self.metamorphosisSkill.setDisabled(True)
+                    self.metamorphosisSkill.setText(str(self.char_data['Metamorphosis']))
+                self.metamorphosisSkill.setDisabled(False)
                 
                 if self.char_data['Necromancy'] == -1:
-                    self.necromancySkill.setValue(0)
+                    self.necromancySkill.setText('0')
                 else:
-                    self.necromancySkill.setValue(self.char_data['Necromancy'])
-                self.necromancySkill.setDisabled(True)
+                    self.necromancySkill.setText(str(self.char_data['Necromancy']))
+                self.necromancySkill.setDisabled(False)
                 
                 if self.char_data['Clairvoyance'] == -1:
-                    self.clairvoyanceSkill.setValue(0)
+                    self.clairvoyanceSkill.setText('0')
                 else:
-                    self.clairvoyanceSkill.setValue(self.char_data['Clairvoyance'])
-                self.clairvoyanceSkill.setDisabled(True)
+                    self.clairvoyanceSkill.setText(str(self.char_data['Clairvoyance']))
+                self.clairvoyanceSkill.setDisabled(False)
                 
                 if self.char_data['Psychokinesis'] == -1 :
-                    self.psychokinesisSkill.setValue(0)
+                    self.psychokinesisSkill.setText('0')
                 else:
-                    self.psychokinesisSkill.setValue(self.char_data['Psychokinesis'])
-                self.psychokinesisSkill.setDisabled(True)
+                    self.psychokinesisSkill.setText(str(self.char_data['Psychokinesis']))
+                self.psychokinesisSkill.setDisabled(False)
                 
                 if self.char_data['Telepathy'] == -1:
-                    self.telepathySkill.setValue(0)
+                    self.telepathySkill.setText('0')
                 else:
-                    self.telepathySkill.setValue(self.char_data['Telepathy'])
-                self.telepathySkill.setDisabled(True)
+                    self.telepathySkill.setText(str(self.char_data['Telepathy']))
+                self.telepathySkill.setDisabled(False)
                 
                 self.rewardDisplay.setText(self.char_data['Reward'])
                 if int(self.healthDisplay.text()) < 0 or int(self.sanityDisplay.text()) < 0 or int(self.moraleDisplay.text()) < 0:
@@ -554,12 +546,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.actionRoll_Result.setDisabled(True)
                 self.rollresultDisplay.setText('')
                 red_flag = False
-                temp_encumbrance = 1 + self.bodyScore.value() + self.strengthSkill.value()
-                temp_movement = 1 + self.bodyScore.value() + self.agilitySkill.value()
-                temp_range = 1 + self.bodyScore.value() + self.strengthSkill.value()
+                temp_encumbrance = 1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())
+                temp_movement = 1 + int(self.bodyScore.text()) + int(self.agilitySkill.text())
+                temp_range = 1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())
                 if int(self.healthDisplay.text()) > 1 and not self.encumbered_flag:
-                    self.movementDisplay.setText(str(1 + self.bodyScore.value() + self.agilitySkill.value()) + ' spaces')
-                    self.rangeDisplay.setText(str(1 + self.bodyScore.value() + self.strengthSkill.value()) + ' miles')
+                    self.movementDisplay.setText(str(1 + int(self.bodyScore.text()) + int(self.agilitySkill.text())) + ' spaces')
+                    self.rangeDisplay.setText(str(1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())) + ' miles')
                     log.debug('Character can move fine.')
                 elif int(self.healthDisplay.text()) == 1:
                     red_flag = True
@@ -712,7 +704,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Roll for Initiative
         '''
-        self.initiative = str(self.mindScore.value()) + 'd6+' + str(self.charismaSkill.value())
+        self.initiative = self.mindScore.text() + 'd6+' + self.charismaSkill.text()
         self.dice_result = roll(self.initiative)
         self.print_to_box = self.initiative + ' = ' + str(self.dice_result)
         self.rollInput.setText(self.initiative)
@@ -732,7 +724,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = str(self.bodyScore.value()) + 'd6'
+            self.actionDice = self.bodyScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -799,7 +791,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = str(self.mindScore.value()) + 'd6'
+            self.actionDice = self.mindScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -866,7 +858,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
-            self.actionDice = str(self.spiritScore.value()) + 'd6'
+            self.actionDice = self.spiritScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
             self.strengthRadio.setDisabled(False)
@@ -925,7 +917,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def agilityRadio_valueChanged(self):
         if self.agilityRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.agilitySkill.value())
+            self.rollDice = self.actionDice + '+' + self.agilitySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -937,7 +929,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def beautyRadio_valueChanged(self):
         if self.beautyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.beautySkill.value())
+            self.rollDice = self.actionDice + '+' + self.beautySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -949,7 +941,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def strengthRadio_valueChanged(self):
         if self.strengthRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.strengthSkill.value())
+            self.rollDice = self.actionDice + '+' + self.strengthSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -961,7 +953,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def knowledgeRadio_valueChanged(self):
         if self.knowledgeRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.knowledgeSkill.value())
+            self.rollDice = self.actionDice + '+' + self.knowledgeSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -973,7 +965,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def perceptionRadio_valueChanged(self):
         if self.perceptionRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.perceptionSkill.value())
+            self.rollDice = self.actionDice + '+' + self.perceptionSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -985,7 +977,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def technologyRadio_valueChanged(self):
         if self.technologyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.technologySkill.value())
+            self.rollDice = self.actionDice + '+' + self.technologySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -997,7 +989,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def charismaRadio_valueChanged(self):
         if self.charismaRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.charismaSkill.value())
+            self.rollDice = self.actionDice + '+' + self.charismaSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1009,7 +1001,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def empathyRadio_valueChanged(self):
         if self.empathyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.empathySkill.value())
+            self.rollDice = self.actionDice + '+' + self.empathySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1021,7 +1013,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def focusRadio_valueChanged(self):
         if self.focusRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.focusSkill.value())
+            self.rollDice = self.actionDice + '+' + self.focusSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1033,7 +1025,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def boxingRadio_valueChanged(self):
         if self.boxingRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.boxingSkill.value())
+            self.rollDice = self.actionDice + '+' + self.boxingSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1045,7 +1037,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def meleeRadio_valueChanged(self):
         if self.meleeRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.meleeSkill.value())
+            self.rollDice = self.actionDice + '+' + self.meleeSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1057,7 +1049,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def rangedRadio_valueChanged(self):
         if self.rangedRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.rangedSkill.value())
+            self.rollDice = self.actionDice + '+' + self.rangedSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1069,7 +1061,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def artRadio_valueChanged(self):
         if self.artRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.artSkill.value())
+            self.rollDice = self.actionDice + '+' + self.artSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1081,7 +1073,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def languagesRadio_valueChanged(self):
         if self.languagesRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.languagesSkill.value())
+            self.rollDice = self.actionDice + '+' + self.languagesSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1093,7 +1085,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def scienceRadio_valueChanged(self):
         if self.scienceRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.scienceSkill.value())
+            self.rollDice = self.actionDice + '+' + self.scienceSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1105,7 +1097,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def blessRadio_valueChanged(self):
         if self.blessRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.blessSkill.value())
+            self.rollDice = self.actionDice + '+' + self.blessSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1117,7 +1109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def exorcismRadio_valueChanged(self):
         if self.exorcismRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.exorcismSkill.value())
+            self.rollDice = self.actionDice + '+' + self.exorcismSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1129,7 +1121,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def healingRadio_valueChanged(self):
         if self.healingRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.healingSkill.value())
+            self.rollDice = self.actionDice + '+' + self.healingSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1141,7 +1133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def demonologyRadio_valueChanged(self):
         if self.demonologyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.demonologySkill.value())
+            self.rollDice = self.actionDice + '+' + self.demonologySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1153,7 +1145,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def metamorphosisRadio_valueChanged(self):
         if self.metamorphosisRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.metamorphosisSkill.value())
+            self.rollDice = self.actionDice + '+' + self.metamorphosisSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1165,7 +1157,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def necromancyRadio_valueChanged(self):
         if self.necromancyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.necromancySkill.value())
+            self.rollDice = self.actionDice + '+' + self.necromancySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1177,7 +1169,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def clairvoyanceRadio_valueChanged(self):
         if self.clairvoyanceRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.clairvoyanceSkill.value())
+            self.rollDice = self.actionDice + '+' + self.clairvoyanceSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1189,7 +1181,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def psychokinesisRadio_valueChanged(self):
         if self.psychokinesisRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.psychokinesisSkill.value())
+            self.rollDice = self.actionDice + '+' + self.psychokinesisSkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1201,7 +1193,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def telepathyRadio_valueChanged(self):
         if self.telepathyRadio.isChecked():
-            self.rollDice = self.actionDice + '+' + str(self.telepathySkill.value())
+            self.rollDice = self.actionDice + '+' + self.telepathySkill.text()
             self.bodyRadio.setDisabled(True)
             self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
@@ -1226,18 +1218,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rollresultDisplay.setText(self.action_result)
         self.rollresult_Button.setDisabled(True)
         self.actionRoll_Result.setDisabled(True)
-        self.agilitySkill.setDisabled(True)
-        self.beautySkill.setDisabled(True)
-        self.strengthSkill.setDisabled(True)
-        self.knowledgeSkill.setDisabled(True)
-        self.perceptionSkill.setDisabled(True)
-        self.technologySkill.setDisabled(True)
-        self.charismaSkill.setDisabled(True)
-        self.empathySkill.setDisabled(True)
-        self.focusSkill.setDisabled(True)
-        self.boxingSkill.setDisabled(True)
-        self.meleeSkill.setDisabled(True)
-        self.rangedSkill.setDisabled(True)
         self.agilityRadio.setDisabled(True)
         self.beautyRadio.setDisabled(True)
         self.strengthRadio.setDisabled(True)
@@ -1489,7 +1469,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2022 or trange[1] > 4:
+        if trange[0] > 2022 or trange[1] > 5:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1531,7 +1511,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2022 or trange[1] > 4:
+    elif trange[0] > 2022 or trange[1] > 5:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
