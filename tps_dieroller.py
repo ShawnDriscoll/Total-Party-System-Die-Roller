@@ -919,11 +919,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.agilityRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.agilitySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -931,11 +928,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.beautyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.beautySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -943,11 +937,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.strengthRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.strengthSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -955,11 +946,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.knowledgeRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.knowledgeSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -967,11 +955,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.perceptionRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.perceptionSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -979,11 +964,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.technologyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.technologySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -991,11 +973,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.charismaRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.charismaSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1003,11 +982,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.empathyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.empathySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1015,11 +991,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.focusRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.focusSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1027,11 +1000,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.boxingRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.boxingSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1039,11 +1009,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.meleeRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.meleeSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1051,11 +1018,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.rangedRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.rangedSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1063,11 +1027,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.artRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.artSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1075,11 +1036,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.languagesRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.languagesSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1087,11 +1045,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.scienceRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.scienceSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1099,11 +1054,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.blessRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.blessSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1111,11 +1063,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.exorcismRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.exorcismSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1123,11 +1072,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.healingRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.healingSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1135,11 +1081,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.demonologyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.demonologySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1147,11 +1090,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.metamorphosisRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.metamorphosisSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1159,11 +1099,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.necromancyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.necromancySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1171,11 +1108,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.clairvoyanceRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.clairvoyanceSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1183,11 +1117,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.psychokinesisRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.psychokinesisSkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
@@ -1195,11 +1126,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.telepathyRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.telepathySkill.text()
             self.bodyRadio.setDisabled(True)
-            self.bodyScore.setDisabled(True)
             self.mindRadio.setDisabled(True)
-            self.mindScore.setDisabled(True)
             self.spiritRadio.setDisabled(True)
-            self.spiritScore.setDisabled(True)
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     

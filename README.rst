@@ -72,6 +72,8 @@ Things To-Do
 * v0.3.0b
 
   Replaced all the GUI QSpinBox objects with QLabel objects. QSpinBox objects ended up not being needed for this program.
+  
+  Undisabled fields that didn't need disabling. Easier on the eyes now.
 
 * v0.2.1b
 
