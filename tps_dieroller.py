@@ -1,6 +1,6 @@
 #
 #   TPS DieRoller Beta for the Total Party Skills RPG
-#   Written for Python 3.9.10
+#   Written for Python 3.9.11
 #
 ##############################################################
 
@@ -35,7 +35,7 @@ import json
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 __app__ = 'TPS DieRoller 0.3.0 (Beta)'
 __version__ = '0.3.0b'
-__py_version__ = '3.9.10'
+__py_version__ = '3.9.11'
 __expired_tag__ = False
 
 '''
@@ -1397,7 +1397,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2022 or trange[1] > 5:
+        if trange[0] > 2022 or trange[1] > 11:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1439,7 +1439,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2022 or trange[1] > 5:
+    elif trange[0] > 2022 or trange[1] > 11:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
