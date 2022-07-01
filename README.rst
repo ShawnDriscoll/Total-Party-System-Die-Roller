@@ -18,20 +18,20 @@ Requirements
 
 * **Windows 10**
 
-   It might not work in OSX or Linux.
+  It might not work in OSX or Linux.
 
 * **Python 3.9.10**
-   
-   This code was written using the C implementation of Python
-   version 3.9.10. Also known as CPython.
+
+  This code was written using the C implementation of Python
+  version 3.9.10. Also known as CPython.
 
 * **colorama 0.4.4**
 
-   Because CMD may have some colored text messages for debugging invalid die rolls.
-   
+  Because CMD may have some colored text messages for debugging invalid die rolls.
+
 * **PyQt5 5.15.4**
 
-   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
+  PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
 
 
 Warning
