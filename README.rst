@@ -8,7 +8,7 @@
 Notes
 -----
 
-**Total Party Skills RPG Die Roller** is being developed using Python 3.9.10 and PyQt5.
+**Total Party Skills RPG Die Roller** is being developed using Python 3.11.0 and PyQt5.
 
 .. figure:: images/tps_dieroller.png
 
@@ -18,18 +18,14 @@ Requirements
 
 * **Windows 10**
 
-  It might not work in OSX or Linux.
+  It has not been tested in Windows 11.
 
-* **Python 3.9.10**
+* **Python 3.11.0**
 
   This code was written using the C implementation of Python
-  version 3.9.10. Also known as CPython.
+  version 3.11.0. Also known as CPython.
 
-* **colorama 0.4.4**
-
-  Because CMD may have some colored text messages for debugging invalid die rolls.
-
-* **PyQt5 5.15.4**
+* **PyQt5 5.15.17**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
 
@@ -68,6 +64,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.4.0b
+
+  Updated to Python 3.11.0.
 
 * v0.3.0b
 

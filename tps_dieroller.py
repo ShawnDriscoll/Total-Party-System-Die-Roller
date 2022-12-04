@@ -1,11 +1,11 @@
 #
 #   TPS DieRoller Beta for the Total Party Skills RPG
-#   Written for Python 3.9.11
+#   Written for Python 3.11.0
 #
 ##############################################################
 
 """
-TPS DieRoller 0.3.0 Beta for the Total Party Skills RPG
+TPS DieRoller 0.4.0 Beta for the Total Party Skills RPG
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -26,16 +26,16 @@ from aboutdialog import Ui_aboutDialog
 from alertdialog import Ui_alertDialog
 from missingdialog import Ui_missingDialog
 from random import randint
-from rpg_tools.PyDiceroll import roll
+from rpg_tools.pydice import roll
 import sys
 import os
 import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.3.0 (Beta)'
-__version__ = '0.3.0b'
-__py_version__ = '3.9.11'
+__app__ = 'TPS DieRoller 0.4.0 (Beta)'
+__version__ = '0.4.0b'
+__py_version__ = '3.11.0'
 __expired_tag__ = False
 
 '''
@@ -1397,7 +1397,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2022 or trange[1] > 11:
+        if trange[0] > 2022 or trange[1] > 12:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1439,7 +1439,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2022 or trange[1] > 11:
+    elif trange[0] > 2022 or trange[1] > 12:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
