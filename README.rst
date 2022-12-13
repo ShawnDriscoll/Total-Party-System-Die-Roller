@@ -30,11 +30,6 @@ Requirements
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
 
 
-Warning
--------
-
-This code will not work with **Python 2.7-**.
-
 
 Not Using Python?
 -----------------
