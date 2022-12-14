@@ -25,7 +25,7 @@ Requirements
   This code was written using the C implementation of Python
   version 3.11.0. Also known as CPython.
 
-* **PyQt5 5.15.17**
+* **PyQt5 5.15.7**
 
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
 
