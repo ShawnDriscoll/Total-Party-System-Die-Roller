@@ -1,14 +1,14 @@
-**Total Party Skills RPG Die Roller**
-=====================================
+**Total Party System Die Roller**
+=================================
 
 
-**Total Party Skills RPG Die Roller** is a Windows program for calculating die rolls using the Total Party Skills system.
+**Total Party System Die Roller** is a Windows program for calculating die rolls using the Total Party System.
 
 
 Notes
 -----
 
-**Total Party Skills RPG Die Roller** is being developed using Python 3.11.0 and PyQt5.
+**Total Party System Die Roller** is being developed using Python 3.11.0 and PyQt5.
 
 .. figure:: images/tps_dieroller.png
 
@@ -77,8 +77,8 @@ Things To-Do
   Now recognizes psionic characters from Strange Bedfellows.
 
 
-The Total Party Skills RPG was written by R. Joshua Holland.
-Copyright 2021 - 2022, Total Party Skills.
+The Total Party System - Universal RPG was written by R. Joshua Holland.
+Copyright 2021 - 2023, Total Party Skills.
 https://www.drivethrurpg.com/browse/pub/20325/Total-Party-Skills
 
 

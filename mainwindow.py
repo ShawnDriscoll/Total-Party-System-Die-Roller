@@ -1793,7 +1793,7 @@ class Ui_MainWindow(object):
         self.charnameDisplay.setStatusTip(_translate("MainWindow", "Character\'s name"))
         self.actionMod.setToolTip(_translate("MainWindow", "Target Number Modifier"))
         self.actionMod.setStatusTip(_translate("MainWindow", "Target number modifier"))
-        self.titleLabel.setText(_translate("MainWindow", "Total Party Skills RPG System"))
+        self.titleLabel.setText(_translate("MainWindow", "Total Party System"))
         self.targetnumberDisplay.setToolTip(_translate("MainWindow", "Target Number"))
         self.targetnumberDisplay.setStatusTip(_translate("MainWindow", "Target number to roll over"))
         self.limitsBox.setTitle(_translate("MainWindow", "Limits"))

@@ -1,17 +1,17 @@
 #
-#   TPS DieRoller Beta for the Total Party Skills RPG
+#   TPS DieRoller Beta for the Total Party System
 #   Written for Python 3.11.0
 #
 ##############################################################
 
 """
-TPS DieRoller 0.4.0 Beta for the Total Party Skills RPG
+TPS DieRoller 0.4.0 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
 
-The Total Party Skills RPG was written by R. Joshua Holland.
-Copyright 2021 - 2022, Total Party Skills.
+The Total Party System was written by R. Joshua Holland.
+Copyright 2021 - 2023, Total Party Skills.
 """
 #import vlc
 
@@ -1303,7 +1303,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         open an email letter to send as feedback to the author
         '''
-        os.startfile('mailto:shawndriscoll@hotmail.com?subject=Feedback: ' + __app__ + ' for Total Party Skills RPG')
+        os.startfile('mailto:shawndriscoll@hotmail.com?subject=Feedback: ' + __app__ + ' for Total Party System')
         
     def Overview_menu(self):
         '''
@@ -1397,7 +1397,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2022 or trange[1] > 12:
+        if trange[0] > 2023 or trange[1] > 4:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1439,7 +1439,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2022 or trange[1] > 12:
+    elif trange[0] > 2023 or trange[1] > 4:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
