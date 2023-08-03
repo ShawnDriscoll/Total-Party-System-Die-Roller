@@ -23,7 +23,7 @@ Requirements
 * **Python 3.11.4**
 
   This code was written using the C implementation of Python
-  version 3.11.0. Also known as CPython.
+  version 3.11.4. Also known as CPython.
 
 * **PyQt5 5.15.9**
 
