@@ -1,5 +1,5 @@
 #
-#   pydice.py 3.12.5
+#   pydice.py 3.12.6
 #
 #   Written for Python 3.11.4
 #
@@ -26,7 +26,7 @@ import logging
 import sys
 
 __version__ = '3.12'
-__release__ = '3.12.5'
+__release__ = '3.12.6'
 __py_version_req__ = (3,11,4)
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
 
@@ -93,10 +93,10 @@ def _dierolls(dtype, dcount):
 def roll(dice='2d6'):
     '''
     The dice types to roll are:\n
-    4dF, D01, D2, D3, D4, D5, D6, D8, D09, D10, D12, D20,
-    D30, D099, D100, D0999, D1000, D44, D66, D666, D88,
-    DD, FLUX, GOODFLUX, BADFLUX, BOON, BANE, ADVANTAGE,
-    DISADVANTAGE, SICHERMAN, HEX, EHEX, and also Traveller5's 1D thru 10D rolls
+    '4dF', 'D01', 'D2', 'D3', 'D4', 'D5', 'D6', 'D8', 'D09', 'D10', 'D12', 'D20',
+    'D30', 'D099', 'D100', 'D0999', 'D1000', 'D44', 'D66', 'D666', 'D88',
+    'DD', 'FLUX', 'GOODFLUX', 'BADFLUX', 'BOON', 'BANE', 'ADVANTAGE',
+    'DISADVANTAGE', 'SICHERMAN', 'HEX', 'EHEX', and also Traveller5's 1D thru 10D rolls
 
     Some examples are:\n
     roll('D6') or roll('1D6') -- roll one 6-sided die\n
@@ -466,9 +466,9 @@ def roll(dice='2d6'):
                     dice_log.info("'%s' = %d%s+%d = %d %s" % (dice, num_dice, dice_type, dice_mod, rolled, dice_comment))
                     return rolled
             if dice_type == 'D1':
-                print("WARNING: The '1D1' roll has been deprecated since roll() v3.12.4.")
+                print("WARNING: The '1D1' roll has been deprecated in roll() v3.12.4.")
                 print("Using '1D01' for the roll instead.")
-                dice_log.warning("WARNING: The '1D1' roll has been deprecated since roll() v3.12.4.")
+                dice_log.warning("WARNING: The '1D1' roll has been deprecated in roll() v3.12.4.")
                 dice_log.warning("Using '1D01' for the roll instead.")
                 dice_type ='D01'
             if dice_type == 'D01' and num_dice == 1 and dice_mod == 0:
