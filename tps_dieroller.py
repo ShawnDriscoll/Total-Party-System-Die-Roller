@@ -1,11 +1,11 @@
 #
 #   TPS DieRoller Beta for the Total Party System
-#   Written for Python 3.11.0
+#   Written for Python 3.11.4
 #
 ##############################################################
 
 """
-TPS DieRoller 0.4.0 Beta for the Total Party System
+TPS DieRoller 0.4.1 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,9 +33,9 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.4.0 (Beta)'
-__version__ = '0.4.0b'
-__py_version__ = '3.11.0'
+__app__ = 'TPS DieRoller 0.4.1 (Beta)'
+__version__ = '0.4.1b'
+__py_version_req__ = (3,11,4)
 __expired_tag__ = False
 
 '''
@@ -1324,14 +1324,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         A roll was inputed manually
         '''
-        log.debug('Manual die roll entered.')
         dice_entered = self.rollInput.text()
-        roll_returned = roll(dice_entered)
-        if roll_returned == -9999:
-            returned_line = dice_entered + ' = ' + '<span style=" color:#ff0000;">' + str(roll_returned) + '</span>'
+        dice_entered = dice_entered.upper()
+        if dice_entered == 'INFO' or dice_entered == 'TEST' or dice_entered == 'MINMAXAVG':
+            roll_returned = roll(dice_entered)
         else:
-            returned_line = dice_entered + ' = ' + str(roll_returned)
-        self.rollBrowser.append(returned_line)
+            log.debug('Manual die roll entered.')
+            roll_returned = roll(dice_entered)
+            
+            # Was the roll a valid one?
+            if roll_returned == -9999:
+                returned_line = dice_entered + ' = ' + '<span style=" color:#ff0000;">' + str(roll_returned) + '</span>'
+            else:
+                returned_line = dice_entered + ' = ' + str(roll_returned)
+                
+            # Display the roll result inside the text browser
+            self.rollBrowser.append(returned_line)
 
     def clearRollHistoryClicked(self):
         '''
@@ -1397,7 +1405,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2023 or trange[1] > 4:
+        if trange[0] > 2023 or trange[1] > 11:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1439,7 +1447,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2023 or trange[1] > 4:
+    elif trange[0] > 2023 or trange[1] > 11:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!
@@ -1458,7 +1466,7 @@ if __name__ == '__main__':
         print('     C:\>tps_dieroller.py 2d6')
     elif sys.argv[1] in ['-v', '/v', '--version']:
         print()
-        print('     TPS DieRoller, release version ' + __version__ + ' for Python ' + __py_version__)
+        print('     TPS DieRoller, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
         log.info('Reporting: TPS DieRoller release version: %s' % __version__)
     else:
         print()
@@ -1474,19 +1482,27 @@ if __name__ == '__main__':
             if num != -1:
                 dice = dice[6:num]
                 dice = str(dice).upper().strip()
+                if dice == '':
+                    dice = '2D6'
+                    log.debug('Default roll was made')
                 num = roll(dice)
-                if dice != 'TEST' and dice != 'INFO':
-                    print("Your '%s' roll is %d." % (dice, num))
-                    log.info("The direct call to TPS DieRoller with '%s' resulted in %d." % (dice, num))
+                if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
+                    print("Your '%s' roll is %s." % (dice, num))
+                    log.info("The direct call to TPS DieRoller with '%s' resulted in %s." % (dice, num))
                 elif dice == 'INFO':
-                    print('TPS DieRoller, release version ' + __version__ + ' for Python ' + __py_version__)
+                    print('TPS DieRoller, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
                     log.info('Reporting: TPS DieRoller release version: %s' % __version__)
+            else:
+                print('Typo of some sort --> ' + dice)
         else:
             dice = str(dice).upper().strip()
+            if dice == 'ROLL()':
+                dice = '2D6'
+                log.debug('Default roll was made')
             num = roll(dice)
-            if dice != 'TEST' and dice != 'INFO':
-                print("Your '%s' roll is %d." % (dice, num))
-                log.info("The direct call to TPS DieRoller with '%s' resulted in %d." % (dice, num))
+            if dice != 'TEST' and dice != 'INFO' and dice != 'MINMAXAVG':
+                print("Your '%s' roll is %s." % (dice, num))
+                log.info("The direct call to TPS DieRoller with '%s' resulted in %s." % (dice, num))
             elif dice == 'INFO':
-                print('TPS DieRoller, release version ' + __version__ + ' for Python ' + __py_version__)
+                print('TPS DieRoller, release version ' + __version__ + ' for Python ' + str(__py_version_req__))
                 log.info('Reporting: TPS DieRoller release version: %s' % __version__)
