@@ -1,11 +1,11 @@
 #
 #   TPS DieRoller Beta for the Total Party System
-#   Written for Python 3.11.4
+#   Written for Python 3.11.6
 #
 ##############################################################
 
 """
-TPS DieRoller 0.4.1 Beta for the Total Party System
+TPS DieRoller 0.4.2 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,9 +33,9 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.4.1 (Beta)'
-__version__ = '0.4.1b'
-__py_version_req__ = (3,11,4)
+__app__ = 'TPS DieRoller 0.4.2 (Beta)'
+__version__ = '0.4.2b'
+__py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
 '''
@@ -1405,7 +1405,7 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
 
-        if trange[0] > 2023 or trange[1] > 11:
+        if trange[0] > 2024 or trange[1] > 12:
             __expired_tag__ = True
             __app__ += ' [EXPIRED]'
 
@@ -1447,7 +1447,7 @@ if __name__ == '__main__':
 
         app.exec_()
     
-    elif trange[0] > 2023 or trange[1] > 11:
+    elif trange[0] > 2024 or trange[1] > 12:
         __app__ += ' [EXPIRED]'
         '''
         Beta for this app has expired!

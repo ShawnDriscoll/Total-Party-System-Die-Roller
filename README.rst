@@ -8,7 +8,7 @@
 Notes
 -----
 
-**Total Party System Die Roller** is being developed using Python 3.11.4 and PyQt5.
+**Total Party System Die Roller** is being developed using Python 3.11.6 and PyQt5.
 
 .. figure:: images/tps_dieroller.png
 
@@ -16,14 +16,14 @@ Notes
 Requirements
 ------------
 
-* **Windows 10**
+* **Windows 11**
 
-  It has not been tested in Windows 11.
+  It will also run in Windows 10.
 
-* **Python 3.11.4**
+* **Python 3.11.6**
 
   This code was written using the C implementation of Python
-  version 3.11.4. Also known as CPython.
+  version 3.11.6. Also known as CPython.
 
 * **PyQt5 5.15.9**
 
@@ -34,7 +34,7 @@ Requirements
 Not Using Python?
 -----------------
 
-You can always run the .EXE version for Windows 10 if you don't have the Python language installed.
+You can always run the .EXE version for Windows 10 and 11 if you don't have the Python language installed.
 
 .. |ss| raw:: html
 
@@ -59,6 +59,10 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.4.2b
+
+  Updated for Windows 11 and 10, and Python 3.11.6.
 
 * v0.4.1b
 
