@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.4.2 Beta for the Total Party System
+TPS DieRoller 0.5.0 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,8 +33,8 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.4.2 (Beta)'
-__version__ = '0.4.2b'
+__app__ = 'TPS DieRoller 0.5.0 (Beta)'
+__version__ = '0.5.0b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -124,7 +124,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Set the default save folder and file type
         self.char_folder = 'Planet Matriarchy Characters'
         self.file_extension = '.tps'
-        self.file_format = 3.0
+        self.file_format = 3.2
 
         self.loadButton.clicked.connect(self.loadButton_clicked)
         self.actionLoad.triggered.connect(self.loadButton_clicked)
@@ -160,6 +160,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artSkill.setDisabled(True)
         self.languagesSkill.setDisabled(True)
         self.scienceSkill.setDisabled(True)
+        self.dodgeSkill.setDisabled(True)
+        self.parrySkill.setDisabled(True)
+        self.strikeSkill.setDisabled(True)
         self.blessSkill.setDisabled(True)
         self.exorcismSkill.setDisabled(True)
         self.healingSkill.setDisabled(True)
@@ -184,6 +187,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setDisabled(True)
         self.languagesRadio.setDisabled(True)
         self.scienceRadio.setDisabled(True)
+        self.dodgeRadio.setDisabled(True)
+        self.parryRadio.setDisabled(True)
+        self.strikeRadio.setDisabled(True)
         self.blessRadio.setDisabled(True)
         self.exorcismRadio.setDisabled(True)
         self.healingRadio.setDisabled(True)
@@ -208,6 +214,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setChecked(False)
         self.languagesRadio.setChecked(False)
         self.scienceRadio.setChecked(False)
+        self.dodgeRadio.setChecked(False)
+        self.parryRadio.setChecked(False)
+        self.strikeRadio.setChecked(False)
         self.blessRadio.setChecked(False)
         self.exorcismRadio.setChecked(False)
         self.healingRadio.setChecked(False)
@@ -217,8 +226,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clairvoyanceRadio.setChecked(False)
         self.psychokinesisRadio.setChecked(False)
         self.telepathyRadio.setChecked(False)
-        self.clearIDR_Button.clicked.connect(self.clearIDR_buttonClicked)
-        self.action_ClearIDR.triggered.connect(self.clearIDR_buttonClicked)
+        self.clearInit_Button.clicked.connect(self.clearInit_buttonClicked)
+        self.clearInit_Button.setDisabled(True)
+        self.action_ClearInit.triggered.connect(self.clearInit_buttonClicked)
+        self.action_ClearInit.setDisabled(True)
         self.actionVisit_Blog.triggered.connect(self.Visit_Blog)
         self.actionFeedback.triggered.connect(self.Feedback)
         self.actionOverview.triggered.connect(self.Overview_menu)
@@ -238,6 +249,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.selDiff.setCurrentIndex(0)
         self.selDiff.currentIndexChanged.connect(self.selDiff_valueChanged)
         self.selDiff.setDisabled(True)
+        self.clearAction_Button.clicked.connect(self.clearAction_buttonClicked)
+        self.clearAction_Button.setDisabled(True)
+        self.farrange_Button.clicked.connect(self.farrange_buttonClicked)
+        self.farrange_Button.setDisabled(True)
+        self.moveattack_Button.clicked.connect(self.moveattack_buttonClicked)
+        self.moveattack_Button.setDisabled(True)
+        self.fullcover_Button.clicked.connect(self.fullcover_buttonClicked)
+        self.fullcover_Button.setDisabled(True)
+        self.partialcover_Button.clicked.connect(self.partialcover_buttonClicked)
+        self.partialcover_Button.setDisabled(True)
         self.bodyRadio.toggled.connect(self.bodyRadio_valueChanged)
         self.mindRadio.toggled.connect(self.mindRadio_valueChanged)
         self.spiritRadio.toggled.connect(self.spiritRadio_valueChanged)
@@ -256,6 +277,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.toggled.connect(self.artRadio_valueChanged)
         self.languagesRadio.toggled.connect(self.languagesRadio_valueChanged)
         self.scienceRadio.toggled.connect(self.scienceRadio_valueChanged)
+        self.dodgeRadio.toggled.connect(self.dodgeRadio_valueChanged)
+        self.parryRadio.toggled.connect(self.parryRadio_valueChanged)
+        self.strikeRadio.toggled.connect(self.strikeRadio_valueChanged)
         self.blessRadio.toggled.connect(self.blessRadio_valueChanged)
         self.exorcismRadio.toggled.connect(self.exorcismRadio_valueChanged)
         self.demonologyRadio.toggled.connect(self.demonologyRadio_valueChanged)
@@ -267,6 +291,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.rollInput.returnPressed.connect(self.manual_roll)
         self.clearRollHistory.clicked.connect(self.clearRollHistoryClicked)
         self.action_ClearRollHistory.triggered.connect(self.clearRollHistoryClicked)
+
+        self.farrange = False
+        self.farrange_mod = 0
+        self.moveattack = False
+        self.moveattack_mod = 0
+        self.fullcover = False
+        self.fullcover_mod = 0
+        self.partialcover = False
+        self.partialcover_mod = 0
 
         #self.le = QLineEdit()
         #self.le.returnPressed.connect(self.append_text)
@@ -303,8 +336,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.selDiff.setDisabled(True)
             self.rollInitiative_Button.setDisabled(True)
             self.actionRoll_Initiative.setDisabled(True)
-            self.clearIDR_Button.setDisabled(True)
-            self.action_ClearIDR.setDisabled(True)
+            self.clearInit_Button.setDisabled(True)
+            self.action_ClearInit.setDisabled(True)
+            self.clearAction_Button.setDisabled(True)
+            self.farrange_Button.setDisabled(True)
+            self.moveattack_Button.setDisabled(True)
+            self.fullcover_Button.setDisabled(True)
+            self.partialcover_Button.setDisabled(True)
             self.actionVisit_Blog.setDisabled(True)
             self.actionFeedback.setDisabled(True)
             self.actionOverview.setDisabled(True)
@@ -316,8 +354,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.temp_dir = os.path.expanduser('~')
             os.chdir(self.temp_dir)
-            if not os.path.exists('.tpsrpg') or not os.path.exists('.tpsrpg\\' + self.char_folder):
-                log.warning(self.char_folder + ' folder not found!')
+            if not os.path.exists('.tpsrpg') or not os.path.exists('.tpsrpg\\' + 'tps.ini'):
+                print('tps.ini not found!')
+                log.warning('tps.ini not found!')
                 log.warning("You'll need https://github.com/ShawnDriscoll/Planet-Matriarchy-RPG-CharGen to start making characters.")
                 self.missing_window()
                 '''
@@ -328,8 +367,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.selDiff.setDisabled(True)
                 self.rollInitiative_Button.setDisabled(True)
                 self.actionRoll_Initiative.setDisabled(True)
-                self.clearIDR_Button.setDisabled(True)
-                self.action_ClearIDR.setDisabled(True)
+                self.clearInit_Button.setDisabled(True)
+                self.action_ClearInit.setDisabled(True)
+                self.clearAction_Button.setDisabled(True)
+                self.farrange_Button.setDisabled(True)
+                self.moveattack_Button.setDisabled(True)
+                self.fullcover_Button.setDisabled(True)
+                self.partialcover_Button.setDisabled(True)
                 self.actionVisit_Blog.setDisabled(True)
                 self.actionFeedback.setDisabled(True)
                 self.actionOverview.setDisabled(True)
@@ -475,6 +519,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.scienceSkill.setText(str(self.char_data['Science']))
                 self.scienceSkill.setDisabled(False)
+
+                if self.char_data['Dodge'] == -1:
+                    self.dodgeSkill.setText('0')
+                else:
+                    self.dodgeSkill.setText(str(self.char_data['Dodge']))
+                self.dodgeSkill.setDisabled(False)
+                
+                if self.char_data['Parry'] == -1:
+                    self.parrySkill.setText('0')
+                else:
+                    self.parrySkill.setText(str(self.char_data['Parry']))
+                self.parrySkill.setDisabled(False)
+                
+                if self.char_data['Strike'] == -1:
+                    self.strikeSkill.setText('0')
+                else:
+                    self.strikeSkill.setText(str(self.char_data['Strike']))
+                self.strikeSkill.setDisabled(False)
                 
                 if self.char_data['Bless'] == -1:
                     self.blessSkill.setText('0')
@@ -518,7 +580,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.clairvoyanceSkill.setText(str(self.char_data['Clairvoyance']))
                 self.clairvoyanceSkill.setDisabled(False)
                 
-                if self.char_data['Psychokinesis'] == -1 :
+                if self.char_data['Psychokinesis'] == -1:
                     self.psychokinesisSkill.setText('0')
                 else:
                     self.psychokinesisSkill.setText(str(self.char_data['Psychokinesis']))
@@ -534,13 +596,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if int(self.healthDisplay.text()) < 0 or int(self.sanityDisplay.text()) < 0 or int(self.moraleDisplay.text()) < 0:
                     self.rollInitiative_Button.setDisabled(True)
                     self.actionRoll_Initiative.setDisabled(True)
-                    self.clearIDR_Button.setDisabled(True)
-                    self.action_ClearIDR.setDisabled(True)
+                    #self.clearInit_Button.setDisabled(True)
+                    #self.action_ClearInit.setDisabled(True)
                 else:
                     self.rollInitiative_Button.setDisabled(False)
                     self.actionRoll_Initiative.setDisabled(False)
-                    self.clearIDR_Button.setDisabled(False)
-                    self.action_ClearIDR.setDisabled(False)
+                    #self.clearInit_Button.setDisabled(False)
+                    #self.action_ClearInit.setDisabled(False)
+                self.clearInit_Button.setDisabled(True)
+                self.action_ClearInit.setDisabled(True)
                 self.initiativeDisplay.setText('')
                 self.rollresult_Button.setDisabled(True)
                 self.actionRoll_Result.setDisabled(True)
@@ -624,6 +688,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.scienceRadio.setCheckable(False)
                 self.scienceRadio.setCheckable(True)
                 self.scienceRadio.setDisabled(True)
+                self.dodgeRadio.setCheckable(False)
+                self.dodgeRadio.setCheckable(True)
+                self.dodgeRadio.setDisabled(True)
+                self.parryRadio.setCheckable(False)
+                self.parryRadio.setCheckable(True)
+                self.parryRadio.setDisabled(True)
+                self.strikeRadio.setCheckable(False)
+                self.strikeRadio.setCheckable(True)
+                self.strikeRadio.setDisabled(True)
                 self.blessRadio.setCheckable(False)
                 self.blessRadio.setCheckable(True)
                 self.blessRadio.setDisabled(True)
@@ -664,6 +737,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Choose the difficulty for the action
         '''
         # Enable Attribute buttons after difficulty has been chosen
+        self.farrange_Button.setDisabled(False)
+        self.farrange = False
+        self.farrangeModDisplay.setText('')
+        self.farrange_mod = 0
+        self.moveattack_Button.setDisabled(False)
+        self.moveattack = False
+        self.moveattackModDisplay.setText('')
+        self.moveattack_mod = 0
+        self.fullcover_Button.setDisabled(False)
+        self.fullcover = False
+        self.fullcoverModDisplay.setText('')
+        self.fullcover_mod = 0
+        self.partialcover_Button.setDisabled(False)
+        self.partialcover = False
+        self.partialcoverModDisplay.setText('')
+        self.partialcover_mod = 0
         self.bodyRadio.setDisabled(False)
         self.mindRadio.setDisabled(False)
         self.spiritRadio.setDisabled(False)
@@ -672,6 +761,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.selDiff.currentIndex() == 0:
             self.target_num = 0
             self.targetnumberDisplay.setText('')
+            self.farrange_Button.setDisabled(True)
+            self.moveattack_Button.setDisabled(True)
+            self.fullcover_Button.setDisabled(True)
+            self.partialcover_Button.setDisabled(True)
             self.bodyRadio.setDisabled(True)
             self.mindRadio.setDisabled(True)
             self.spiritRadio.setDisabled(True)
@@ -704,15 +797,227 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         Roll for Initiative
         '''
-        self.initiative = self.mindScore.text() + 'd6+' + self.charismaSkill.text()
+        if self.char_folder == 'Expedition to Ancient Aegypt Characters' or self.char_folder == 'Heroes of Aegypt Characters' or \
+                self.char_folder == 'Planet Matriarchy Characters' or self.char_folder == 'Strange Bedfellows Characters' or \
+                self.char_folder == 'We Want Soviet Men Characters':
+            self.initiative = self.mindScore.text() + 'd6+' + self.charismaSkill.text()
+        else:
+            self.initiative = self.mindScore.text() + 'd6+' + self.perceptionSkill.text()
         self.dice_result = roll(self.initiative)
         self.print_to_box = self.initiative + ' = ' + str(self.dice_result)
         self.rollInput.setText(self.initiative)
         self.rollBrowser.append(self.print_to_box)
         self.initiativeDisplay.setText(str(self.dice_result))
         self.selDiff.setDisabled(False)
+        self.rollInitiative_Button.setDisabled(True)
+        self.actionRoll_Initiative.setDisabled(True)
+        self.clearInit_Button.setDisabled(False)
+        self.action_ClearInit.setDisabled(False)
         log.debug('Initiative roll was ' + str(self.initiative))
     
+    def farrange_buttonClicked(self):
+        '''
+        Toggle far range penalty
+        '''
+        if self.farrange:
+            self.farrange = False
+            self.farrangeModDisplay.setText('')
+            self.farrange_mod = 0
+        else:
+            self.farrange = True
+            self.farrangeModDisplay.setText('<span style=" color:#ff0000;">+3</span>')
+            self.farrange_mod = 3
+            
+            if self.moveattack:
+                self.moveattack = False
+                self.moveattackModDisplay.setText('')
+                self.moveattack_mod = 0
+    
+    def moveattack_buttonClicked(self):
+        '''
+        Toggle move attack penalty
+        '''
+        if self.moveattack:
+            self.moveattack = False
+            self.moveattackModDisplay.setText('')
+            self.moveattack_mod = 0
+        else:
+            self.moveattack = True
+            self.moveattackModDisplay.setText('<span style=" color:#ff0000;">+1</span>')
+            self.moveattack_mod = 1
+            
+            if self.farrange:
+                self.farrange = False
+                self.farrangeModDisplay.setText('')
+                self.farrange_mod = 0
+    
+    def fullcover_buttonClicked(self):
+        '''
+        Toggle full cover penalty
+        '''
+        if self.fullcover:
+            self.fullcover = False
+            self.fullcoverModDisplay.setText('')
+            self.fullcover_mod = 0
+        else:
+            self.fullcover = True
+            self.fullcoverModDisplay.setText('<span style=" color:#ff0000;">+4</span>')
+            self.fullcover_mod = 4
+            
+            if self.partialcover:
+                self.partialcover = False
+                self.partialcoverModDisplay.setText('')
+                self.partialcover_mod = 0
+    
+    def partialcover_buttonClicked(self):
+        '''
+        Toggle partial cover penalty
+        '''
+        if self.partialcover:
+            self.partialcover = False
+            self.partialcoverModDisplay.setText('')
+            self.partialcover_mod = 0
+        else:
+            self.partialcover = True
+            self.partialcoverModDisplay.setText('<span style=" color:#ff0000;">+2</span>')
+            self.partialcover_mod = 2
+            
+            if self.fullcover:
+                self.fullcover = False
+                self.fullcoverModDisplay.setText('')
+                self.fullcover_mod = 0
+
+    def clearAction_buttonClicked(self):
+        '''
+        Clear the action (difficulty, modifiers, roll result)
+        '''
+        log.debug('Cleared D/M/R.')
+        self.selDiff.setCurrentIndex(0)
+        self.selDiff.setDisabled(False)
+        self.clearAction_Button.setDisabled(True)
+        self.unknown = False
+        self.bodyRadio.setCheckable(False)
+        self.bodyRadio.setCheckable(True)
+        self.bodyRadio.setDisabled(True)
+        self.mindRadio.setCheckable(False)
+        self.mindRadio.setCheckable(True)
+        self.mindRadio.setDisabled(True)
+        self.spiritRadio.setCheckable(False)
+        self.spiritRadio.setCheckable(True)
+        self.spiritRadio.setDisabled(True)
+        self.rollresult_Button.setDisabled(True)
+        self.actionRoll_Result.setDisabled(True)
+        self.rollresultDisplay.setText('')
+        self.actionMod.setText('')
+        self.agilityRadio.setDisabled(False)
+        self.agilityRadio.setCheckable(False)
+        self.agilityRadio.setCheckable(True)
+        self.agilityRadio.setDisabled(True)
+        self.beautyRadio.setDisabled(False)
+        self.beautyRadio.setCheckable(False)
+        self.beautyRadio.setCheckable(True)
+        self.beautyRadio.setDisabled(True)
+        self.strengthRadio.setDisabled(False)
+        self.strengthRadio.setCheckable(False)
+        self.strengthRadio.setCheckable(True)
+        self.strengthRadio.setDisabled(True)
+        self.knowledgeRadio.setDisabled(False)
+        self.knowledgeRadio.setCheckable(False)
+        self.knowledgeRadio.setCheckable(True)
+        self.knowledgeRadio.setDisabled(True)
+        self.perceptionRadio.setDisabled(False)
+        self.perceptionRadio.setCheckable(False)
+        self.perceptionRadio.setCheckable(True)
+        self.perceptionRadio.setDisabled(True)
+        self.technologyRadio.setDisabled(False)
+        self.technologyRadio.setCheckable(False)
+        self.technologyRadio.setCheckable(True)
+        self.technologyRadio.setDisabled(True)
+        self.charismaRadio.setDisabled(False)
+        self.charismaRadio.setCheckable(False)
+        self.charismaRadio.setCheckable(True)
+        self.charismaRadio.setDisabled(True)
+        self.empathyRadio.setDisabled(False)
+        self.empathyRadio.setCheckable(False)
+        self.empathyRadio.setCheckable(True)
+        self.empathyRadio.setDisabled(True)
+        self.focusRadio.setDisabled(False)
+        self.focusRadio.setCheckable(False)
+        self.focusRadio.setCheckable(True)
+        self.focusRadio.setDisabled(True)
+        self.boxingRadio.setDisabled(False)
+        self.boxingRadio.setCheckable(False)
+        self.boxingRadio.setCheckable(True)
+        self.boxingRadio.setDisabled(True)
+        self.meleeRadio.setDisabled(False)
+        self.meleeRadio.setCheckable(False)
+        self.meleeRadio.setCheckable(True)
+        self.meleeRadio.setDisabled(True)
+        self.rangedRadio.setDisabled(False)
+        self.rangedRadio.setCheckable(False)
+        self.rangedRadio.setCheckable(True)
+        self.rangedRadio.setDisabled(True)
+        self.artRadio.setDisabled(False)
+        self.artRadio.setCheckable(False)
+        self.artRadio.setCheckable(True)
+        self.artRadio.setDisabled(True)
+        self.languagesRadio.setDisabled(False)
+        self.languagesRadio.setCheckable(False)
+        self.languagesRadio.setCheckable(True)
+        self.languagesRadio.setDisabled(True)
+        self.scienceRadio.setDisabled(False)
+        self.scienceRadio.setCheckable(False)
+        self.scienceRadio.setCheckable(True)
+        self.scienceRadio.setDisabled(True)
+        self.dodgeRadio.setDisabled(False)
+        self.dodgeRadio.setCheckable(False)
+        self.dodgeRadio.setCheckable(True)
+        self.dodgeRadio.setDisabled(True)
+        self.parryRadio.setDisabled(False)
+        self.parryRadio.setCheckable(False)
+        self.parryRadio.setCheckable(True)
+        self.parryRadio.setDisabled(True)
+        self.strikeRadio.setDisabled(False)
+        self.strikeRadio.setCheckable(False)
+        self.strikeRadio.setCheckable(True)
+        self.strikeRadio.setDisabled(True)
+        self.blessRadio.setDisabled(False)
+        self.blessRadio.setCheckable(False)
+        self.blessRadio.setCheckable(True)
+        self.blessRadio.setDisabled(True)
+        self.exorcismRadio.setDisabled(False)
+        self.exorcismRadio.setCheckable(False)
+        self.exorcismRadio.setCheckable(True)
+        self.exorcismRadio.setDisabled(True)
+        self.healingRadio.setDisabled(False)
+        self.healingRadio.setCheckable(False)
+        self.healingRadio.setCheckable(True)
+        self.healingRadio.setDisabled(True)
+        self.demonologyRadio.setDisabled(False)
+        self.demonologyRadio.setCheckable(False)
+        self.demonologyRadio.setCheckable(True)
+        self.demonologyRadio.setDisabled(True)
+        self.metamorphosisRadio.setDisabled(False)
+        self.metamorphosisRadio.setCheckable(False)
+        self.metamorphosisRadio.setCheckable(True)
+        self.metamorphosisRadio.setDisabled(True)
+        self.necromancyRadio.setDisabled(False)
+        self.necromancyRadio.setCheckable(False)
+        self.necromancyRadio.setCheckable(True)
+        self.necromancyRadio.setDisabled(True)
+        self.clairvoyanceRadio.setDisabled(False)
+        self.clairvoyanceRadio.setCheckable(False)
+        self.clairvoyanceRadio.setCheckable(True)
+        self.clairvoyanceRadio.setDisabled(True)
+        self.psychokinesisRadio.setDisabled(False)
+        self.psychokinesisRadio.setCheckable(False)
+        self.psychokinesisRadio.setCheckable(True)
+        self.psychokinesisRadio.setDisabled(True)
+        self.telepathyRadio.setDisabled(False)
+        self.telepathyRadio.setCheckable(False)
+        self.telepathyRadio.setCheckable(True)
+        self.telepathyRadio.setDisabled(True)
+
     def bodyRadio_valueChanged(self):
         '''
         Body Action was chosen
@@ -724,6 +1029,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
+            self.farrange_Button.setDisabled(True)
+            self.moveattack_Button.setDisabled(True)
+            self.fullcover_Button.setDisabled(True)
+            self.partialcover_Button.setDisabled(True)
             self.actionDice = self.bodyScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
@@ -743,6 +1052,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
+            if self.char_data['Dodge'] != -1:
+                self.dodgeRadio.setDisabled(False)
+            if self.char_data['Parry'] != -1:
+                self.parryRadio.setDisabled(False)
+            if self.char_data['Strike'] != -1:
+                self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
             if self.char_data['Psychokinesis'] > 0:
@@ -791,6 +1106,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
+            self.farrange_Button.setDisabled(True)
+            self.moveattack_Button.setDisabled(True)
+            self.fullcover_Button.setDisabled(True)
+            self.partialcover_Button.setDisabled(True)
             self.actionDice = self.mindScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
@@ -810,6 +1129,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
+            if self.char_data['Dodge'] != -1:
+                self.dodgeRadio.setDisabled(False)
+            if self.char_data['Parry'] != -1:
+                self.parryRadio.setDisabled(False)
+            if self.char_data['Strike'] != -1:
+                self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
             if self.char_data['Psychokinesis'] > 0:
@@ -858,6 +1183,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.actionRoll_Initiative.setDisabled(True)
             self.rollresultDisplay.setText('')
             self.selDiff.setDisabled(True)
+            self.farrange_Button.setDisabled(True)
+            self.moveattack_Button.setDisabled(True)
+            self.fullcover_Button.setDisabled(True)
+            self.partialcover_Button.setDisabled(True)
             self.actionDice = self.spiritScore.text() + 'd6'
             self.agilityRadio.setDisabled(False)
             self.beautyRadio.setDisabled(False)
@@ -877,6 +1206,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
+            if self.char_data['Dodge'] != -1:
+                self.dodgeRadio.setDisabled(False)
+            if self.char_data['Parry'] != -1:
+                self.parryRadio.setDisabled(False)
+            if self.char_data['Strike'] != -1:
+                self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
             if self.char_data['Psychokinesis'] > 0:
@@ -1050,6 +1385,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.rollresult_Button.setDisabled(False)
             self.actionRoll_Result.setDisabled(False)
     
+    def dodgeRadio_valueChanged(self):
+        if self.dodgeRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + self.dodgeSkill.text()
+            self.bodyRadio.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
+    
+    def parryRadio_valueChanged(self):
+        if self.parryRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + self.parrySkill.text()
+            self.bodyRadio.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
+    
+    def strikeRadio_valueChanged(self):
+        if self.strikeRadio.isChecked():
+            self.rollDice = self.actionDice + '+' + self.strikeSkill.text()
+            self.bodyRadio.setDisabled(True)
+            self.mindRadio.setDisabled(True)
+            self.spiritRadio.setDisabled(True)
+            self.rollresult_Button.setDisabled(False)
+            self.actionRoll_Result.setDisabled(False)
+    
     def blessRadio_valueChanged(self):
         if self.blessRadio.isChecked():
             self.rollDice = self.actionDice + '+' + self.blessSkill.text()
@@ -1139,7 +1501,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.print_to_box = self.rollDice + ' = ' + str(self.dice_result)
         self.rollInput.setText(self.rollDice)
         self.rollBrowser.append(self.print_to_box)
-        if self.dice_result > self.modified_target_num:
+        if self.dice_result > self.modified_target_num + self.farrange_mod + self.moveattack_mod + self.fullcover_mod + self.partialcover_mod:
             self.action_result = str(self.dice_result) + ' - Successful'
         else:
             self.action_result = str(self.dice_result) + ' - Failed'
@@ -1161,6 +1523,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.artRadio.setDisabled(True)
         self.languagesRadio.setDisabled(True)
         self.scienceRadio.setDisabled(True)
+        self.dodgeRadio.setDisabled(True)
+        self.parryRadio.setDisabled(True)
+        self.strikeRadio.setDisabled(True)
         self.blessRadio.setDisabled(True)
         self.exorcismRadio.setDisabled(True)
         self.healingRadio.setDisabled(True)
@@ -1170,15 +1535,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.clairvoyanceRadio.setDisabled(True)
         self.psychokinesisRadio.setDisabled(True)
         self.telepathyRadio.setDisabled(True)
+        self.clearAction_Button.setDisabled(False)
         log.debug('Displayed action result: ' + self.action_result + '.')
 
-    def clearIDR_buttonClicked(self):
+    def clearInit_buttonClicked(self):
         '''
-        Clear initiative, difficulty, and result 
+        Clear Initiative, difficulty, modifiers, and result
         '''
-        log.debug('Cleared I/D/R.')
+        log.debug('Cleared I/D/M/R.')
         self.selDiff.setCurrentIndex(0)
         self.selDiff.setDisabled(True)
+        self.clearInit_Button.setDisabled(True)
+        self.action_ClearInit.setDisabled(True)
+        self.clearAction_Button.setDisabled(True)
         self.unknown = False
         self.bodyRadio.setCheckable(False)
         self.bodyRadio.setCheckable(True)
@@ -1256,6 +1625,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scienceRadio.setCheckable(False)
         self.scienceRadio.setCheckable(True)
         self.scienceRadio.setDisabled(True)
+        self.dodgeRadio.setDisabled(False)
+        self.dodgeRadio.setCheckable(False)
+        self.dodgeRadio.setCheckable(True)
+        self.dodgeRadio.setDisabled(True)
+        self.parryRadio.setDisabled(False)
+        self.parryRadio.setCheckable(False)
+        self.parryRadio.setCheckable(True)
+        self.parryRadio.setDisabled(True)
+        self.strikeRadio.setDisabled(False)
+        self.strikeRadio.setCheckable(False)
+        self.strikeRadio.setCheckable(True)
+        self.strikeRadio.setDisabled(True)
         self.blessRadio.setDisabled(False)
         self.blessRadio.setCheckable(False)
         self.blessRadio.setCheckable(True)

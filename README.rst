@@ -52,6 +52,7 @@ Things To-Do
 | Cheat codes.
 |ss|
 
+| Add Vampires Gone Wild.
 | Add/borrow psionics check for future use from We Want Soviet Men!
 | Add Encumbrance rules from Rocket Cadets in the 11th Dimension!
 | Start on a To-Do.
@@ -59,6 +60,11 @@ Things To-Do
 |se|
 
 **Known History**
+
+* v0.5.0b
+
+  Added combat range and cover modifiers.
+  Martial Skills added from Girls Gone Vampire: Dodge, Parry, Strike.
 
 * v0.4.2b
 
