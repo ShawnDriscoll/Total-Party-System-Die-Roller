@@ -1052,11 +1052,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-            if self.char_data['Dodge'] != -1:
+            if self.char_data['Dodge'] > 0:
                 self.dodgeRadio.setDisabled(False)
-            if self.char_data['Parry'] != -1:
+            if self.char_data['Parry'] > 0:
                 self.parryRadio.setDisabled(False)
-            if self.char_data['Strike'] != -1:
+            if self.char_data['Strike'] > 0:
                 self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
@@ -1129,11 +1129,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-            if self.char_data['Dodge'] != -1:
+            if self.char_data['Dodge'] > 0:
                 self.dodgeRadio.setDisabled(False)
-            if self.char_data['Parry'] != -1:
+            if self.char_data['Parry'] > 0:
                 self.parryRadio.setDisabled(False)
-            if self.char_data['Strike'] != -1:
+            if self.char_data['Strike'] > 0:
                 self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
@@ -1206,11 +1206,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.languagesRadio.setDisabled(False)
             if self.char_data['Science'] != -1:
                 self.scienceRadio.setDisabled(False)
-            if self.char_data['Dodge'] != -1:
+            if self.char_data['Dodge'] > 0:
                 self.dodgeRadio.setDisabled(False)
-            if self.char_data['Parry'] != -1:
+            if self.char_data['Parry'] > 0:
                 self.parryRadio.setDisabled(False)
-            if self.char_data['Strike'] != -1:
+            if self.char_data['Strike'] > 0:
                 self.strikeRadio.setDisabled(False)
             if self.char_data['Clairvoyance'] > 0:
                 self.clairvoyanceRadio.setDisabled(False)
