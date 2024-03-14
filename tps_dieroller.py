@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.5.0 Beta for the Total Party System
+TPS DieRoller 0.5.1 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,8 +33,8 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.5.0 (Beta)'
-__version__ = '0.5.0b'
+__app__ = 'TPS DieRoller 0.5.1 (Beta)'
+__version__ = '0.5.1b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -124,7 +124,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Set the default save folder and file type
         self.char_folder = 'Planet Matriarchy Characters'
         self.file_extension = '.tps'
-        self.file_format = 3.2
+        self.file_format = 3.3
 
         self.loadButton.clicked.connect(self.loadButton_clicked)
         self.actionLoad.triggered.connect(self.loadButton_clicked)
@@ -300,6 +300,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.fullcover_mod = 0
         self.partialcover = False
         self.partialcover_mod = 0
+        self.vampire_flag = False
 
         #self.le = QLineEdit()
         #self.le.returnPressed.connect(self.append_text)
@@ -419,6 +420,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     log.warning('[Warning] Reading an older file format of ' + str(self.format_read))
                 elif self.format_read > self.file_format:
                     log.warning('[Warning] Reading a (newer?!) file format of ' + str(self.format_read))
+                
+                if self.format_read == self.file_format:
+                    self.vampire_flag = self.char_data['Is_Vampire']
+                else:
+                    self.vampire_flag = False
+
+                if self.vampire_flag == True:
+                    self.enc = 3
+                    self.mov = 2
+                    self.ran = 5
+                else:
+                    self.enc = 1
+                    self.mov = 1
+                    self.ran = 1
+                
                 self.charnameDisplay.setText(self.char_data['Name'])
                 self.charnameDisplay.setDisabled(False)
                 self.selDiff.setCurrentIndex(0)
@@ -610,12 +626,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.actionRoll_Result.setDisabled(True)
                 self.rollresultDisplay.setText('')
                 red_flag = False
-                temp_encumbrance = 1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())
-                temp_movement = 1 + int(self.bodyScore.text()) + int(self.agilitySkill.text())
-                temp_range = 1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())
+                temp_encumbrance = self.enc + int(self.bodyScore.text()) + int(self.strengthSkill.text())
+                temp_movement = self.mov + int(self.bodyScore.text()) + int(self.agilitySkill.text())
+                temp_range = self.ran + int(self.bodyScore.text()) + int(self.strengthSkill.text())
                 if int(self.healthDisplay.text()) > 1 and not self.encumbered_flag:
-                    self.movementDisplay.setText(str(1 + int(self.bodyScore.text()) + int(self.agilitySkill.text())) + ' spaces')
-                    self.rangeDisplay.setText(str(1 + int(self.bodyScore.text()) + int(self.strengthSkill.text())) + ' miles')
+                    self.movementDisplay.setText(str(self.mov + int(self.bodyScore.text()) + int(self.agilitySkill.text())) + ' spaces')
+                    self.rangeDisplay.setText(str(self.ran + int(self.bodyScore.text()) + int(self.strengthSkill.text())) + ' miles')
+                    if self.vampire_flag == True and int(self.psychokinesisSkill.text()) > 0:
+                        self.flightDisplay.setText(str(int(self.spiritScore.text()) + int(self.psychokinesisSkill.text())))
+                    else:
+                        self.flightDisplay.setText('')
                     log.debug('Character can move fine.')
                 elif int(self.healthDisplay.text()) == 1:
                     red_flag = True

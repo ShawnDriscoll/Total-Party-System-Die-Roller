@@ -61,6 +61,10 @@ Things To-Do
 
 **Known History**
 
+* v0.5.1b
+
+  Added Limits from Girls Gone Vampire.
+
 * v0.5.0b
 
   Added combat range and cover modifiers.
