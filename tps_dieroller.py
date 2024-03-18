@@ -423,12 +423,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if self.format_read == self.file_format:
                     self.vampire_flag = self.char_data['Is_Vampire']
-                    self.cult = self.char_data['Cult']
                 else:
                     self.vampire_flag = False
                     self.cult = ''
 
                 if self.vampire_flag == True:
+                    self.cult = self.char_data['Cult']
                     if self.cult == 'Boeotian Club':
                         self.enc = 3
                         self.mov = 2
