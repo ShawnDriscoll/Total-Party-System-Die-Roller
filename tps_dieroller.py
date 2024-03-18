@@ -423,13 +423,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 if self.format_read == self.file_format:
                     self.vampire_flag = self.char_data['Is_Vampire']
+                    self.cult = self.char_data['Cult']
                 else:
                     self.vampire_flag = False
+                    self.cult = ''
 
                 if self.vampire_flag == True:
-                    self.enc = 3
-                    self.mov = 2
-                    self.ran = 5
+                    if self.cult == 'Boeotian Club':
+                        self.enc = 3
+                        self.mov = 2
+                        self.ran = 5
+                    else:
+                        self.enc = 1
+                        self.mov = 1
+                        self.ran = 1
                 else:
                     self.enc = 1
                     self.mov = 1
@@ -632,7 +639,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if int(self.healthDisplay.text()) > 1 and not self.encumbered_flag:
                     self.movementDisplay.setText(str(self.mov + int(self.bodyScore.text()) + int(self.agilitySkill.text())) + ' spaces')
                     self.rangeDisplay.setText(str(self.ran + int(self.bodyScore.text()) + int(self.strengthSkill.text())) + ' miles')
-                    if self.vampire_flag == True and int(self.psychokinesisSkill.text()) > 0:
+                    if self.vampire_flag == True and self.cult == 'Boeotian Club' and int(self.psychokinesisSkill.text()) > 0:
                         self.flightDisplay.setText(str(int(self.spiritScore.text()) + int(self.psychokinesisSkill.text())))
                     else:
                         self.flightDisplay.setText('')
