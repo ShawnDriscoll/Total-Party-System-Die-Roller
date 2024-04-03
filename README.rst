@@ -30,36 +30,16 @@ Requirements
   PyQt5 is the framework used for displaying the Window GUI and buttons, etc.
 
 
-
-Not Using Python?
------------------
-
-You can always run the .EXE version for Windows 10 and 11 if you don't have the Python language installed.
-
-.. |ss| raw:: html
-
-    <strike>
-
-.. |se| raw:: html
-
-    </strike>
-
 Things To-Do
 ------------
 
 | Continue unifying the skills across all TPS genres.
 | Instruction manual.
 | Cheat codes.
-|ss|
 
-| Add Vampires Gone Wild.
-| Add/borrow psionics check for future use from We Want Soviet Men!
-| Add Encumbrance rules from Rocket Cadets in the 11th Dimension!
-| Start on a To-Do.
 
-|se|
-
-**Known History**
+Known History
+-------------
 
 * v0.5.1b
 
