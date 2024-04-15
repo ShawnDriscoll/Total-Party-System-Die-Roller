@@ -5,7 +5,7 @@
 ##############################################################
 
 """
-TPS DieRoller 0.5.1 Beta for the Total Party System
+TPS DieRoller 0.6.0 Beta for the Total Party System
 -------------------------------------------------------
 
 This program rolls 6-sided dice and calculates their effects.
@@ -33,8 +33,8 @@ import logging
 import json
 
 __author__ = 'Shawn Driscoll <shawndriscoll@hotmail.com>\nshawndriscoll.blogspot.com'
-__app__ = 'TPS DieRoller 0.5.1 (Beta)'
-__version__ = '0.5.1b'
+__app__ = 'TPS DieRoller 0.6.0 (Beta)'
+__version__ = '0.6.0b'
 __py_version_req__ = (3,11,6)
 __expired_tag__ = False
 
@@ -301,6 +301,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.partialcover = False
         self.partialcover_mod = 0
         self.vampire_flag = False
+        self.number_of_items = 0
 
         #self.le = QLineEdit()
         #self.le.returnPressed.connect(self.append_text)
@@ -429,11 +430,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 if self.vampire_flag == True:
                     self.cult = self.char_data['Cult']
+                    temp_number_of_items = self.char_data['ITEMS']
+                    #self.number_of_items = temp_number_of_items.count(',')
+                    #print(self.number_of_items)
+                    self.number_of_items = len(temp_number_of_items.split(','))
+                    print('Items:', self.number_of_items)
                     if self.cult == 'Boeotian Club':
                         self.enc = 3
                         self.mov = 2
                         self.ran = 5
-                    else:
+                    if self.cult == 'Hantu Belian' or self.cult == 'Goddess Cult' or self.cult == 'Utopian Legion':
                         self.enc = 1
                         self.mov = 1
                         self.ran = 1
@@ -641,6 +647,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.rangeDisplay.setText(str(self.ran + int(self.bodyScore.text()) + int(self.strengthSkill.text())) + ' miles')
                     if self.vampire_flag == True and self.cult == 'Boeotian Club' and int(self.psychokinesisSkill.text()) > 0:
                         self.flightDisplay.setText(str(int(self.spiritScore.text()) + int(self.psychokinesisSkill.text())))
+                    elif self.vampire_flag == True and self.cult == 'Utopian Legion':
+                        self.flightDisplay.setText(str(int(self.bodyScore.text()) + int(self.strengthSkill.text()) - self.number_of_items))
                     else:
                         self.flightDisplay.setText('')
                     log.debug('Character can move fine.')

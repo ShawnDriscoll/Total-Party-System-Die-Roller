@@ -41,6 +41,10 @@ Things To-Do
 Known History
 -------------
 
+* v0.6.0b
+
+  Added flight encumbrance from Girls Gone Vampire.
+
 * v0.5.1b
 
   Added Limits from Girls Gone Vampire.

@@ -1864,7 +1864,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "TPS DieRoller 0.5.1 (Beta)"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "TPS DieRoller 0.6.0 (Beta)"))
         self.clearAction_Button.setToolTip(_translate("MainWindow", "Clear Difficulty, modifiers, and Result"))
         self.clearAction_Button.setStatusTip(_translate("MainWindow", "Clear difficulty, modifiers, and result"))
         self.clearAction_Button.setText(_translate("MainWindow", "Clear Action"))
